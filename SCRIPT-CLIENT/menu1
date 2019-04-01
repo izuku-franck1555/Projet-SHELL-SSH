@@ -1,0 +1,13 @@
+#!/bin/bash
+
+function menu1()
+{
+    resize -s 30 90
+
+
+
+
+
+}
+
+menu1
