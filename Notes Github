@@ -1,0 +1,25 @@
+						MES NOTES GITHUB
+
+	BUT  : Ameliorer le travail en equipe ou personnel a travers ses differents outils et un systeme de branches.
+-> GIT est un outil de versioning !
+-> Toujours initialiser le projet la 1 ere fois avec git init
+						COMMIT
+-> Le commit est similaire a une photo. La premiere etape consiste a selectionner les fichiers que l'on souhaite prendre en photo via la commande git add fileName et la seconde etape consisite a prendre cette photo en indiquant en quoi la photo prise est differente de l ancienne. La commande est git commit -m "Nouveau message"
+-> La commande git log permet de voire l historique des differentes actions ainsi que les auteurs entreprises sur le prjet.
+						LES BRANCHES
+-> Elles nous permettent de pouvoir travailler sur une copie du projet afin de securiser la branche principale qui est situe dans la branche master. Pour creer une branche on utilise la commande git branch nomBranche
+-> Pour lister les branches on utilise la commande git branch
+-> La commande git checkout nomMBranche permet de se positionner sur une autre branche.
+-> La commande git merge nomBranche permet de fusionner la branche sur laquelle on est positionne avec la branche entre dans la commande. 
+-> Donc en resume on cree une branche, on modifie le code, on enregistre ensuite on commit, on se repositionne sur la branche principale et on merge !
+-> Pour supprimer une branche on utilise la commande git branch -d nomBranche
+->
+->
+->
+->
+->
+->
+->
+->
+->
+->
