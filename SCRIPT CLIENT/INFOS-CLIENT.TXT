@@ -2,7 +2,7 @@
 		Il s agit d un commit plus detaille. Merci d' etre precis et concis et de toujours le remplir. :)
   ->premiere branche
   ->
-  ->
+  ->premiere branche
   ->
   ->
   ->
