@@ -2,8 +2,7 @@
 		Il s agit d un commit plus detaille. Merci d etre precis et concis et de toujours le remplir. :)
   ->initialisation du projet shell (salvador).
   ->initialisation du projet shell (ztf).
-  ->
-  ->
+  ->initialisation des test  jhkkyvyhvkbukgugyfft
   ->
   ->
   ->
