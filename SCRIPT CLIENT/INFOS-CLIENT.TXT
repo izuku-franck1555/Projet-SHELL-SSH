@@ -1,8 +1,8 @@
 		Ce fichier sera rempli apres chaque push pour tenir informe les autres sur les nouvelles fonctionnalites. 
 		Il s agit d un commit plus detaille. Merci d' etre precis et concis et de toujours le remplir. :)
+  ->premiere branche
   ->
-  ->
-  ->
+  ->premiere branche
   ->
   ->
   ->
