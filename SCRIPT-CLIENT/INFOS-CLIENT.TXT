@@ -4,7 +4,7 @@
   ->
   ->premiere branche
   ->enfin ma premiere modification
-  ->
+  -> TOUS LES MENUS SONT OPERATIONNELS. IL FAUT JUSTE ECRIRE LES FONCTIONS CORRESPONDANT A CHAQUE MENU.
   ->
   ->
   ->
