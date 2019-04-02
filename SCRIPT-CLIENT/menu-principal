@@ -739,9 +739,6 @@ function main()
     connexion_client=1
     montage=1
     menu-mode-client
-
-
 }
 
 main
-echo "BOnjour"
