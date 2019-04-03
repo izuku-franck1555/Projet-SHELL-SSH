@@ -1,0 +1,135 @@
+# SOUS MENU ENVOI  DES  CLES
+function menu-fonct-server-envoi()
+{
+    resize -s 24 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t    FONCTIONNALITES    DU     SERVEUR\t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t          ENVOI   DES   CLES\t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n \n \n \n \n \n \n \n"
+    
+
+
+    echo -e    "   APPUYER   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
+    appui
+    menu-fonct-server      
+}
+
+# SOUS MENU POUR LA CONNEXION  AU SERVEUR
+function menu-fonct-server-conn()
+{
+    connexion_client=0
+    resize -s 21 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t    FONCTIONNALITES    DU     SERVEUR\t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t          CONNEXION  AU  SERVEUR\t\t\t\t|"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    echo -e    " ---> Indiquez l' adresse  IP  du serveur auquel vous souhaitez vous connecte :    "
+    read ipserver
+    echo -e    "         VOUS     ETES     CONNECTES    A      PRESENT    !!!\n                    " 
+    echo -e    "   APPUYER   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
+    appui
+    menu-fonct-server
+}
+
+#SOUS  MENU  POUR  LA  DECONNECTION 
+function menu-fonct-server-deconn()
+{
+    resize -s 17 83
+    clear
+    connexion_client=1
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t    FONCTIONNALITES    DU     SERVEUR\t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t        DECONNEXION  AU  SERVEUR\t\t\t\t|"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|           VOUS      ETES       DECONNECTES       A        PRESENT !!!           |"
+    echo -e    "|                                                                                 |"
+    echo -e    "|    APPUYER   SUR   UNE   TOUCHE   POUR  REVENIR   AU   MENU   PRINCIPAL !       |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    appui
+    menu-fonct-server
+}
+
+# MENU PRINCIPAL FONCTIONNALITES  SERVEUR
+function menu-fonct-server()
+{
+    resize -s 18 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    SERVEUR\t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n \n"
+    
+    #VARIABLES DU MENU
+
+    me1="\t Envoi  de  la  cle  publique       au   serveur"
+    me2="\t Connexion  \t     au    \t    serveur \n"
+    me3="\t Deconnexion  \t     du    \t    serveur \n"
+    me4="\t Revenir  \t     au  \t    mode    Client  \n"
+    me5="\t Quitter"
+ 
+    me1=`echo -e "$me1"`
+    me2=`echo -e "$me2"`
+    me3=`echo -e "$me3"`
+    me4=`echo -e "$me4"`
+    me5=`echo -e "$me5"`
+    
+    #CHOIX DU MENU
+
+    PS3="`echo -e " \n\n Veuillez \t faire  \t  votre  \t  choix :     "`"
+
+    select var in "$me1" "$me2" "$me3" "$me4" "$me5"
+    do 
+        case $REPLY in 
+			1)	
+                menu-fonct-server-envoi		
+                break
+            ;;
+    		2)
+                menu-fonct-server-conn		
+                break
+			;;
+            3)
+                if [ $connexion_client -eq 1 ] 
+                    then
+                        echo -e " \n Vous   devez   d'   abord    etre   connecte     !"
+                    else
+                        menu-fonct-server-deconn
+                        break
+                fi
+			;;
+            4)
+                menu-mode-client	
+                break
+			;;
+            5)	
+				exit
+			;;
+            *)
+                PS3="`echo -e " \n Veuillez       faire       un       choix       valide :     "`"
+            ;;
+		esac	
+    done    
+}

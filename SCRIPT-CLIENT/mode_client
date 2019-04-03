@@ -1,0 +1,90 @@
+#!/bin/bash
+
+source config_client
+source etablir_communication
+source fonctionnalites_client
+
+# FONCTION QUI S OCCUPE D APPUYER SUR UNE TOUCHE POUR CONTINUER
+function appui()
+{
+    x='ab';while [[ "$x" == "ab" ]]; do read -n1 x; done
+}
+
+# MENU PRINCIPAL DU CLIENT
+
+function menu-mode-client()
+{
+    resize -s 16 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t       MODE        CLIENT    \t  \t \t \t  |"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n \n"
+    
+    #VARIABLES DU MENU
+
+    me1="\t Configurer  \t          le  \t  client \n\n"
+    me2="\t Fonctionnalites  \t  du  \t  serveur \n"
+    me3="\t Fonctionnalites  \t  du  \t  client \n"
+    me4="\t Quitter"
+
+    me1=`echo -e "$me1"`
+    me2=`echo -e "$me2"`
+    me3=`echo -e "$me3"`
+    me4=`echo -e "$me4"`
+
+    #CHOIX DU MENU
+
+    PS3="`echo -e " \n\n Veuillez \t faire  \t  votre  \t  choix :     "`"
+
+    select var in "$me1" "$me2" "$me3" "$me4"
+    do 
+        case $REPLY in 
+			1)
+				clear	
+                menu-config-client		
+                break
+            ;;
+            2)
+                if [ $configuration_client -eq 1 ] 
+                    then
+                        echo -e " \nVeuillez configurer le client pour avoir acces aux fonctionnalites serveur  !"
+                    else
+                        menu-fonct-server
+                        break
+                fi
+			;;
+    		3)
+                if [ $configuration_client -eq 0 -a $connexion_client -eq  1 ] 
+                    then
+                        echo -e " \n Veuillez connecter le client pour avoir acces a ses fonctionnalites !"
+                    elif [ $configuration_client -eq 1 ] 
+                        then
+                            echo -e " \n Veuillez configurer le client pour avoir acces a ses fonctionnalites !"
+                    else
+                        menu-fonct-client
+                        break
+                fi
+			;;
+        	4)	
+				exit
+			;;
+            *)
+                PS3="`echo -e " \n Veuillez       faire       un       choix       valide :     "`"
+            ;;
+		esac	
+    done
+}
+
+# FONCTION PRINCIPALE SIMILAIRE A UN MAIN 
+function main()
+{
+    configuration_client=1
+    connexion_client=1
+    montage=1
+    menu-mode-client
+}
+
+main

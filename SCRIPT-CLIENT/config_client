@@ -1,0 +1,119 @@
+# FONCTION QUI APPELERA LE PREMIER SOUS MENU DE CONFIGURATION CLIENT
+function menu-config-client()
+{
+    menu-config-client-inst-openssh
+} 
+
+# SOUS MENU CHARGE DE L INSTALLATION DE OPENSSH + VERIFICATION
+function menu-config-client-inst-openssh()
+{
+    resize -s 27 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t    CONFIGURATION    DU    CLIENT \t  \t \t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t1 -> INSTALLATION DE OPENSSH CLIENT\t \t \t\t|"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|  CETTE ETAPE A POUR BUT D INSTALLER LE PAQUET OPENSSH CLIENT, PAQUET QUI VOUS   |"
+    echo -e    "|   PERMETTRA DE VOUS CONNECTER A UN SERVEUR. SI VOUS LE POSSEDEZ DEJA IL VOUS    |"
+    echo -e    "|        SERA DEMANDER DE PASSER A L ETAPE SUIVANTE DE LA CONFIGURATION.          |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n \n \n \n \n \n \n \n"
+    
+
+
+    echo -e " Appuyer     sur     une     touche     pour     continuer   :  "
+    appui
+    menu-config-client-inst-sshfs    
+}
+
+# SOUS MENU CHARGE DE L INSTALLATION DE SSHFS + VERIFICATION
+function menu-config-client-inst-sshfs()
+{
+    resize -s 27 84
+    clear
+    echo -e    "|**********************************************************************************|"
+    echo -e    "|                                                                                  |"
+    echo -e    "|\t \t \t   CONFIGURATION    DU    CLIENT\t\t\t \t|"
+	echo -e    "|                                                                                  |"
+	echo -e    "|**********************************************************************************|"
+    echo -e    "|                                                                                  |"
+    echo -e    "|\t\t\t2 -> INSTALLATION    DE     SSHFS\t \t\t\t|"
+    echo -e    "|                                                                                  |"
+	echo -e    "|**********************************************************************************|"
+    echo -e    "|                                                                                  |"
+    echo -e    "|  CETTE ETAPE A POUR BUT D INSTALLER LE PAQUET SSHFS, PAQUET QUI VOUS PERMETTRA   |"
+    echo -e    "|  DE POUVOIR MONTER UN REPERTOIRE DU SERVEUR DANS VOTRE ARBORESCNCE DE FICHIERS.  |"
+    echo -e    "|                                                                                  |"
+	echo -e    "|**********************************************************************************|"
+    echo -e "\n \n \n \n \n \n \n \n"
+    
+
+
+    echo -e " Appuyer     sur     une     touche     pour     continuer   :  "
+    appui
+    menu-config-client-generation    
+}
+
+#SOUS MENU CHARGE DE LA GENERATION DE LA PAIRE CLE VALEUR.
+function menu-config-client-generation()
+{
+    resize -s 27 84
+    clear
+    echo -e    "|**********************************************************************************|"
+    echo -e    "|                                                                                  |"
+    echo -e    "|\t \t \t  CONFIGURATION    DU    CLIENT \t  \t \t \t|"
+	echo -e    "|                                                                                  |"
+	echo -e    "|**********************************************************************************|"
+    echo -e    "|                                                                                  |"
+    echo -e    "|\t\t\t 3 -> GENERATION    DES     CLES\t \t \t\t|"
+    echo -e    "|                                                                                  |"
+	echo -e    "|**********************************************************************************|"
+    echo -e    "|                                                                                  |"
+    echo -e    "| CETTE ETAPE A POUR BUT DE VOUS AIDER A GENERER UNE PAIRE DE CLES, QUI VOUS AIDE- |"
+    echo -e    "|  DERA A VOUS AUTHENTIFIER AU PRES DE VOTRE SERVEUR. NOTEZ QUE POUR CETTE ETAPE,  |"
+    echo -e    "|  IL EST NECESSAIRE D' AVOIR LE MOT DE PASSE DU SERVEUR EN VOTRE POSSESION, FAUTE |"
+    echo -e    "|    DE QUOI ON VOUS INDIQUERA COMMENT FAIRE POUR ENVOYER VOTRE CLE PUBLIQUE AU    |"
+    echo -e    "|                                 SERVEUR !!!                                      |"
+    echo -e    "|                                                                                  |"
+	echo -e    "|**********************************************************************************|"
+    echo -e "\n \n \n \n \n \n"
+    
+
+
+    echo -e " Appuyer     sur     une     touche     pour     continuer   :  "
+    appui
+    menu-client-configure    
+}
+
+#SOUS MENU CHARGE DE RETOURNER AU MENU PRINCIPAL DU CLIENT
+function menu-client-configure()
+{
+    resize -s 17 83
+    clear
+    configuration_client=0
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t    CONFIGURATION    DU    CLIENT \t  \t \t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t   CONFIGURATION      TERMINEE   !!!\t \t \t\t|"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|   LA CONFIGURATION DU CLIENT EST TERMINEE. VOUS POUVEZ A PRESENT UTILISER LES   |"
+    echo -e    "|         DIFFERENTES FONCTIONNALITES DE SSH PROPOSES PAR NOTRE SCRIPT.           |"
+    echo -e    "|                                                                                 |"
+    echo -e    "|    APPUYER   SUR   UNE   TOUCHE   POUR  REVENIR   AU   MENU   PRINCIPAL !       |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    appui
+    menu-mode-client    
+}

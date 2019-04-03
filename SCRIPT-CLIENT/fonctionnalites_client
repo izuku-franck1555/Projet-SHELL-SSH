@@ -1,0 +1,394 @@
+# SOUS MENU POUR LE TRANSFERT DE FICHIERS
+function menu-fonct-client-transf()
+{
+    resize -s 25 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t      TRANSFERT   DE   FICHIERS\t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|  NOTEZ QUE SFTP VOUS OFFRE LA POSSIBILITE D' UTILISER VOTRE GESTIONNAIRE DE FI- |"
+    echo -e    "|            CHIERS POUR EFFECTUER DES COPIES CONTRAIREMENT A SCP.                |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+     echo -e "\n"
+    
+    #VARIABLES DU MENU
+
+    me1="\t Transfert  \t  via  \t  SCP \n\n"
+    me2="\t Transfert  \t  via  \t  SFTP \n"
+    me3="\t Retourner  \t  aux  \t  fonctionnalites "
+
+    me1=`echo -e "$me1"`
+    me2=`echo -e "$me2"`
+    me3=`echo -e "$me3"`
+    
+    #CHOIX DU MENU
+
+    PS3="`echo -e " \n\n\n Veuillez \t faire  \t  votre  \t  choix :     "`"
+
+    select var in "$me1" "$me2" "$me3"
+    do 
+        case $REPLY in 
+			1)	
+                menu-fonct-client-transf-scp		
+                break
+            ;;
+    		2)
+                menu-fonct-client-transf-sftp		
+                break
+			;;
+        	3)	
+				menu-fonct-client
+			;;
+            *)
+                PS3="`echo -e " \n Veuillez       faire       un       choix       valide :     "`"
+            ;;
+		esac	
+    done 
+} 
+
+#SOUS  MENU  POUR  LE  MONTAGE
+function menu-fonct-client-mont()
+{
+    resize -s 17 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t    MONTAGE   REPERTOIRE  DISTANT   \t \t \t\t|"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "\n"
+    echo -e    " -->  Indiquez  le  chemin  du  repertoire  distant  (repertoire dans le serveur)  "
+    read repdist
+    menu-fonct-client-mont-termine
+}
+
+#SOUS  MENU  POUR  LE  DEMONTAGE
+function menu-fonct-client-demont()
+{
+    resize -s 17 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t   DEMONTAGE   REPERTOIRE  DISTANT  \t \t \t\t|"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "\n"
+    echo -e    " -->  Indiquez  le  chemin  du  repertoire  distant  (repertoire dans le serveur)  "
+    read repdist
+    menu-fonct-client-demont-termine
+}
+
+# SOUS MENU POUR LE TRANSFERT VIA SCP
+function menu-fonct-client-transf-scp()
+{
+    resize -s 24 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t      TRANSFERT   DE   FICHIERS\t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t        TRANSFERT   VIA   SCP  \t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    echo -e    " ---->   Indiquez  le  chemin  source  (repertoire dans le serveur)                "
+    read source
+    echo -e    " ---->   Indiquez  le  chemin   de   destination  (repertoire dans le client)      "
+    read desti
+    echo -e    "             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n                    " 
+    echo -e    "   APPUYER   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
+    appui
+    menu-fonct-client
+}
+
+#SOUS MENU POUR LE TRANSFERT VIA SFTP
+function menu-fonct-client-transf-sftp()
+{
+    resize -s 28 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t      TRANSFERT   DE   FICHIERS\t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t        TRANSFERT   VIA   SFTP \t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "| VOUS  POUVEZ  MONTER VIRTUELLEMENT UN REPERTOIRE DISTANT AFIN DE FACILITER VOS  |"
+    echo -e    "|   COPIES  EN ENTRANT sftp://monlogin@monserveur DANS LA BARRE D' ADRESSE DE     |"
+    echo -e    "|                      VOTRE GESTIONNAIRE  DE  FICHIERS.                          |"
+    echo -e    "|*********************************************************************************|"
+    echo -e    "\n"
+    echo -e    " ---->   Indiquez  le  chemin  source  (repertoire dans le serveur)                "
+    read source
+    echo -e    " ---->   Indiquez  le  chemin   de   destination  (repertoire dans le client)      "
+    read desti
+    echo -e    "             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n                    " 
+    echo -e    "   APPUYER   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
+    appui
+    menu-fonct-client
+}
+
+# SOUS MENU POUR LE MONTAGE  TERMINEE
+function menu-fonct-client-mont-termine()
+{
+    resize -s 17 83
+    clear
+    montage=0
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t       MONTAGE        TERMINEE   !!!\t \t \t\t|"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|   LE  MONTAGE  EST  TERMINE.  VOUS  POUVEZ  DESORMAIS  NAVIGUER  DANS   LE  RE- |"
+    echo -e    "|                     PERTOIRE  EN   TOUTE  LIBERTE  !!!                          |"
+    echo -e    "|                                                                                 |"
+    echo -e    "|    APPUYER   SUR   UNE   TOUCHE   POUR  REVENIR   AU   MENU   PRINCIPAL !       |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    appui
+    menu-mode-client  
+}
+
+# SOUS MENU POUR LE DEMONTAGE  TERMINEE
+function menu-fonct-client-demont-termine()
+{
+    resize -s 17 83
+    clear
+    montage=1
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t   DEMONTAGE        TERMINEE   !!!  \t \t \t\t|"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|                      LE    DEMONTAGE    EST    TERMINE  !!!                     |"
+    echo -e    "|                                                                                 |"
+    echo -e    "|    APPUYER   SUR   UNE   TOUCHE   POUR  REVENIR   AU   MENU   PRINCIPAL !       |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    appui
+    menu-mode-client  
+}
+
+#SOUS  MENU  POUR LA REDIRECTION VERS UN PORT DISTANT
+function menu-fonct-client-redir-portloc()
+{
+    resize -s 24 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t      REDIRECTION  DES   PORTS \t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t       REDIRECTION PORT LOCAL  \t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    echo -e    " ---->   Indiquez  le  port distant  ( port du serveur)                            "
+    read dist
+    echo -e    " ---->   Indiquez  le  port local    ( port du client)                             "
+    read loc
+    echo -e    "           VOTRE     REDIRECTION     A     ETE     EFFECTUE   !!!\n                " 
+    echo -e    "   APPUYER   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
+    appui
+    menu-fonct-client
+}   
+
+#SOUS  MENU  POUR LA SECURISATION
+function menu-fonct-client-redir-secur()
+{
+    resize -s 24 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t      REDIRECTION  DES   PORTS \t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t       SECURISATION PORT DISTANT\t\t \t\t|"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    echo -e    " ---->   Indiquez  le  port que vous souhaitez securise :                          "
+    read dist
+    echo -e    " ---->   Indiquez  le  port qui devra le remplacer  :                              "
+    read loc
+    echo -e    "           LA   SECURISATION   DU   PORT    A    ETE    EFFECTUE   !!!\n           " 
+    echo -e    "   APPUYER   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
+    appui
+    menu-fonct-client
+}
+
+# SOUS MENU POUR LA REDIRECTION
+function menu-fonct-client-redir()
+{
+    resize -s 28 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t      REDIRECTION  DES   PORTS \t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|  LA  REDIRECTION  VOUS  PERMETTRA  D' UTILISER  UN  PORT  DU  SERVEUR  SUR  VO- |"
+    echo -e    "|                           TRE  POSTE   CLIENT.                                  |"
+    echo -e    "|  LA  SECURISATION VOUS  PERMETTRA  DE REMPLACER  DE REMPLACER  UN PORT DE VOTRE |"
+    echo -e    "|   SERVEUR  PAR  UN  AUTRE  AFIN  DE  LE  GARDER  SECRET  ET LIMITER  L' ACCESS  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+     echo -e "\n"
+    
+    #VARIABLES DU MENU
+
+    me1="\t Redirection  \t  port  \tlocal \n\n"
+    me2="\t Securisation  \t  port  \tdistant \n"
+    me3="\t Retourner  \t  aux  \t        fonctionnalites "
+
+    me1=`echo -e "$me1"`
+    me2=`echo -e "$me2"`
+    me3=`echo -e "$me3"`
+    
+    #CHOIX DU MENU
+
+    PS3="`echo -e " \n\n\n Veuillez \t faire  \t  votre  \t  choix :     "`"
+
+    select var in "$me1" "$me2" "$me3"
+    do 
+        case $REPLY in 
+			1)	
+                menu-fonct-client-redir-portloc		
+                break
+            ;;
+    		2)
+                menu-fonct-client-redir-secur		
+                break
+			;;
+        	3)	
+				menu-fonct-client
+			;;
+            *)
+                PS3="`echo -e " \n Veuillez       faire       un       choix       valide :     "`"
+            ;;
+		esac	
+    done   
+}
+
+# FONCTION DU MENU DES FONCTIONNALITES DU CLIENT
+function menu-fonct-client()
+{
+    resize -s 18 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n \n"
+    
+    #VARIABLES DU MENU
+
+    me1="\t Transfert  \t  de  \t          fichiers \n\n"
+    me2="\t Montage  \t  repertoire  \t  distant \n"
+    me3="\t Demontage  \t  repertoire  \t  distant \n"
+    me4="\t Redirection  \t  de  \t          ports \n"
+    me5="\t Revenir  \t  au  \t          mode  Client  \n"
+    me6="\t Quitter"
+ 
+    me1=`echo -e "$me1"`
+    me2=`echo -e "$me2"`
+    me3=`echo -e "$me3"`
+    me4=`echo -e "$me4"`
+    me5=`echo -e "$me5"`
+    me6=`echo -e "$me6"`
+    
+    #CHOIX DU MENU
+
+    PS3="`echo -e " \n\n Veuillez \t faire  \t  votre  \t  choix :     "`"
+
+    select var in "$me1" "$me2" "$me3" "$me4" "$me5" "$me6"
+    do 
+        case $REPLY in 
+			1)	
+                menu-fonct-client-transf		
+                break
+            ;;
+    		2)
+                menu-fonct-client-mont		
+                break
+			;;
+            3)
+                if [ $montage -eq 1 ] 
+                    then
+                        echo -e " \n Vous   devez   d'   abord    monter    un   repertoire    !"
+                    else
+                        menu-fonct-client-demont
+                        break
+                fi
+			;;
+        	4)
+                menu-fonct-client-redir		
+                break
+			;;
+            5)
+                menu-mode-client	
+                break
+			;;
+            6)	
+				exit
+			;;
+            *)
+                PS3="`echo -e " \n Veuillez       faire       un       choix       valide :     "`"
+            ;;
+		esac	
+    done
+}
