@@ -4,7 +4,7 @@ source config_client
 source etablir_communication
 source fonctionnalites_client
 
-# FONCTION QUI S OCCUPE D APPUYER SUR UNE TOUCHE POUR CONTINUER
+# FONCTION QUI S OCCUPE D APPUYEZ SUR UNE TOUCHE POUR CONTINUER
 function appui()
 {
     x='ab';while [[ "$x" == "ab" ]]; do read -n1 x; done
@@ -26,7 +26,7 @@ function menu-mode-client()
     #VARIABLES DU MENU
 
     me1="\t Configurer  \t          le  \t  client \n\n"
-    me2="\t Fonctionnalites  \t  du  \t  serveur \n"
+    me2="\t Connexion  \t          au  \t  serveur \n"
     me3="\t Fonctionnalites  \t  du  \t  client \n"
     me4="\t Quitter"
 
