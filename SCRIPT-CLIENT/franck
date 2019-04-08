@@ -3,29 +3,28 @@ function appui()
 {
     x='ab';while [[ "$x" == "ab" ]]; do read -n1 x; done 
 }
+#gnome-terminal -e 'bash -c "./mode_client"' >> log.txt 2>&1
 
-function gener-cles()
+
+function securisation()
 {
-	echo -e "-----------------------------------------------------------------------------------"
-	echo -e "\t GENERATION DES CLES EN COURS !!! IL VOUS SERA DEMANDE D' ENTREZ  UNE "
-	echo -e "\t   UNE PASSPHRASE QUI VOUS REMPLACERA LE MOT DE PASSE DU COMPTE SER-  "
-	echo -e "\t           VEUR. ELLE DOIT CONTENIR AU MOINS 5 CARACTERES             " 
-	echo -e "-----------------------------------------------------------------------------------\n\n"
-	ssh-keygen -f ~/Bureau/key >> log.txt 2>&1
+    echo -e    "\n ---->   Indiquez  le  port que vous souhaitez securise :                        \n"
+    read loc
+    echo -e    "\n ---->   Indiquez  le  port qui devra le remplacer  sur le serveur:              \n"
+    read dist
+	gnome-terminal -e 'bash -c "resize -s 10 10;clear;clear;echo \"REDIRECTION EN COURS\";ssh nomserver@$ipserver -NR$dist:localhost:$loc"' >> log.txt 2>&1
 	if [ $? -ne 0 ] 
-	then
-		echo -e "\n\t UN PROBLEME EST SURVENU LORS DE LA GENERATION. VEUILLEZ REESAYER "
-		echo -e "\t       ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
-		echo -e "\t                          MENU PRINCIPAL !                        "
-		appui
-		#menu-mode-client
-	else
-		echo -e "\n\t          GENERATION  DE LA PAIRE  DE CLES EFFECTUEE !!!"
-		echo -e "\t             --------------------------------------        \n"
+		then
+			echo -e "\n\tUN  PROBLEME  EST  SURVENU  LORS  DE  LA REDIRECTION. VEUILLEZ REESAYER "
+			echo -e "\t     ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
+			echo -e "\t                          MENU PRINCIPAL !                        "
+			appui
+			menu-mode-client
 	fi
+	echo -e "\t  POUR  ACCEDER  AU  PORT  $loc  DU  CIENT  IL VOUS SUFFIRA D' ENTRER    "
+	echo -e "\t  localhost:$dist DANS LE NAVIGUATEUR DU SERVEUR. POUR ARRETER LA REDI-  "
+	echo -e "\t          RECTION IL SUFFIT DE FERMER LE MINI TERMINAL.                  "  
 }
 
-gener-cles
-
-	
-	
+transfert-sftp
+echo "Bonjour"
