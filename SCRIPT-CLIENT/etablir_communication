@@ -1,22 +1,30 @@
 # SOUS MENU ENVOI  DES  CLES
 function menu-fonct-server-envoi()
 {
-    resize -s 24 83
+    resize -s 26 83
     clear
-    echo -e    "|*********************************************************************************|"
-    echo -e    "|                                                                                 |"
-    echo -e    "|\t \t \t    FONCTIONNALITES    DU     SERVEUR\t\t\t\t|"
-	echo -e    "|                                                                                 |"
-	echo -e    "|*********************************************************************************|"
-    echo -e    "|                                                                                 |"
-    echo -e    "|\t\t\t          ENVOI   DES   CLES\t \t \t\t  |"
-    echo -e    "|                                                                                 |"
-	echo -e    "|*********************************************************************************|"
+    echo -e    "|**********************************************************************************|"
+    echo -e    "|                                                                                  |"
+    echo -e    "|\t \t \t    FONCTIONNALITES    DU     SERVEUR\t\t\t\t |"
+	echo -e    "|                                                                                  |"
+	echo -e    "|**********************************************************************************|"
+    echo -e    "|                                                                                  |"
+    echo -e    "|\t\t\t          ENVOI   DES   CLES\t \t \t\t   |"
+    echo -e    "|                                                                                  |"
+	echo -e    "|**********************************************************************************|"
+    echo -e    "|                                                                                  |"
+    echo -e    "| CETTE ETAPE A POUR BUT DE VOUS AIDER A ENVOYER VOTRE PAIRE DE CLES, QUI VOUS AI- |"
+    echo -e    "|  DERA A VOUS AUTHENTIFIER AU PRES DE VOTRE SERVEUR. NOTEZ QUE POUR CETTE ETAPE,  |"
+    echo -e    "|  IL EST NECESSAIRE D' AVOIR LE MOT DE PASSE DU SERVEUR EN VOTRE POSSESION, FAUTE |"
+    echo -e    "|    DE QUOI ON VOUS INDIQUERA COMMENT FAIRE POUR ENVOYER VOTRE CLE PUBLIQUE AU    |"
+    echo -e    "|                                 SERVEUR !!!                                      |"
+    echo -e    "|                                                                                  |"
+	echo -e    "|**********************************************************************************|"
     echo -e "\n \n \n \n \n \n \n \n"
     
 
 
-    echo -e    "   APPUYER   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
+    echo -e    "   APPUYEZ   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
     appui
     menu-fonct-server      
 }
@@ -40,7 +48,7 @@ function menu-fonct-server-conn()
     echo -e    " ---> Indiquez l' adresse  IP  du serveur auquel vous souhaitez vous connecte :    "
     read ipserver
     echo -e    "         VOUS     ETES     CONNECTES    A      PRESENT    !!!\n                    " 
-    echo -e    "   APPUYER   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
+    echo -e    "   APPUYEZ   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
     appui
     menu-fonct-server
 }
@@ -63,7 +71,7 @@ function menu-fonct-server-deconn()
     echo -e    "|                                                                                 |"
     echo -e    "|           VOUS      ETES       DECONNECTES       A        PRESENT !!!           |"
     echo -e    "|                                                                                 |"
-    echo -e    "|    APPUYER   SUR   UNE   TOUCHE   POUR  REVENIR   AU   MENU   PRINCIPAL !       |"
+    echo -e    "|    APPUYEZ   SUR   UNE   TOUCHE   POUR  REVENIR   AU   MENU   PRINCIPAL !       |"
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
     appui

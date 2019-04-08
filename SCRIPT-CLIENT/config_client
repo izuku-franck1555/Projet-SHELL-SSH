@@ -1,3 +1,151 @@
+#!/bin/bash
+#FONCTIONNALITES VERIFICATION OPENSSH-CLIENT
+function verif-openssh()
+{
+	echo -e "-----------------------------------------------------------------------------------"
+    echo -e "\tVERIFICATION  DE  OPENSSH-CLIENT !!! IL VOUS SERA PEUT ETRE DEMANDE "
+    echo -e "\t        VOTRE MOT DE PASSE DANS LE CAS OU VOUS NE POSSEDERIEZ         "
+	echo -e "\t                         PAS LE PAQUET.                               "
+	echo -e "-----------------------------------------------------------------------------------\n\n"
+	verif=`dpkg -l | grep openssh-client | tr -s ' ' | cut -d ' ' -f2`
+	if [ "$verif" = "" ]
+		then
+			echo -e "\tVOUS NE POSSEDEZ PAS OPENSSH-CLIENT. SOUHAITEZ VOUS INSTALLER ? (Y/N)"
+			read proc
+				case $proc in
+					Y|y)
+						echo -e "\n\t          DISPOSEZ VOUS D UNE CONNEXION INTERNET ? (Y/N)"
+						read proc2
+						case $proc2 in
+							Y|y) 
+								sudo apt-get install openssh-client >> log.txt 2>&1
+								if [ $? -ne 0 ]
+									then
+										echo -e "\t UN PROBLEME EST SUREVENU LORS DE L INSTALLATION. VEUILLEZ REESAYER ULTERIEUREMENT."
+										exit
+									else
+										echo -e "\n\t          OPENSSH CLIENT A ETE CORRECTEMENT INSTALLE !!!"
+                                        echo -e "\t             --------------------------------------        \n"
+								fi
+							;;
+							N|n) 
+								echo -e "\tVOUS NE POUVEZ PAS CONTINUER LA CONFIGURATION SANS CE PAQUET. APPUYEZ "
+								echo -e "\t            SUR UNE TOUCHE POUR REVENIR AU MENU PRINCIPAL."
+								appui
+								menu-mode-client
+							;;
+							*) 
+								echo -e "CHOIX INCORRECT. VOUS ALLEZ ETRE RENVOYE AU MENU PRINCIPAL. APPUYEZ SUR UNE TOUCHE POUR CONTINUER."
+								appui
+								menu-mode-client
+							;;
+						esac
+					;;
+					N|n)	
+						echo -e "\t  VOUS DEVEZ ETRE CONNECTE A INTERNET POUR CONTINUER. APPUYEZ SUR "
+						echo -e "\t             UNE TOUCHE POUR REVENIR AU MENU PRINCIPAL.            "
+						appui
+						menu-mode-client
+					;;
+					*)
+						echo -e "CHOIX INCORRECT. VOUS ALLEZ ETRE RENVOYE AU MENU PRINCIPAL. APPUYEZ SUR UNE TOUCHE POUR CONTINUER."
+						appui
+						menu-mode-client
+					;;
+				esac
+		else 
+			echo -e "\n\n\t   LE PAQUET OPENSSH-CLIENT EST DEJA PRESENT DANS VOTRE APPAREIL.   "
+			echo -e "\t          -----------------------------------------------         \n"
+	fi	
+}
+
+#FONCTIONNALITES VERIFICATION SSHFS    
+function verif-sshfs()
+{
+	echo -e "-----------------------------------------------------------------------------------"
+	echo -e "\tVERIFICATION  DU  PAQUET  SSHFS  !!! IL VOUS SERA PEUT ETRE DEMANDE "
+    echo -e "\t        VOTRE MOT DE PASSE DANS LE CAS OU VOUS NE POSSEDERIEZ         "
+	echo -e "\t                         PAS LE PAQUET.                               "
+	echo -e "-----------------------------------------------------------------------------------\n\n"
+	verif=`dpkg -l | grep ssh | tr -s ' ' | cut -d ' ' -f2`
+	if [ "$verif" = "" ]
+		then
+			echo -e "\tVOUS NE POSSEDEZ PAS LE PAQUET SSHFS. SOUHAITEZ VOUS INSTALLER ? (Y/N)"
+			read proc
+				case $proc in
+					Y|y)
+						echo -e "\n\t          DISPOSEZ VOUS D UNE CONNEXION INTERNET ? (Y/N)"
+						read proc2
+						case $proc2 in
+							Y|y) 
+								sudo apt-get install sshfs >> log.txt 2>&1 
+								if [ $? -ne 0 ]
+									then
+										echo -e "\t UN PROBLEME EST SUREVENU LORS DE L INSTALLATION. VEUILLEZ REESAYER ULTERIEUREMENT."
+										exit
+									else
+										echo -e "\n\t         LE PAQUET SSHFS A ETE CORRECTEMENT INSTALLE !!!"
+                                        echo -e "\t             --------------------------------------        \n"
+                                fi
+							;;
+							N|n) 
+								echo -e "\tVOUS NE POUVEZ PAS CONTINUER LA CONFIGURATION SANS CE PAQUET. APPUYEZ "
+								echo -e "\t            SUR UNE TOUCHE POUR REVENIR AU MENU PRINCIPAL."
+								appui
+								menu-mode-client
+							;;
+							*) 
+								echo -e "CHOIX INCORRECT. VOUS ALLEZ ETRE RENVOYE AU MENU PRINCIPAL. APPUYEZ SUR UNE TOUCHE POUR CONTINUER."
+								appui
+								menu-mode-client
+							;;
+						esac
+					;;
+					N|n)	
+						echo -e "\t  VOUS DEVEZ ETRE CONNECTE A INTERNET POUR CONTINUER. APPUYEZ SUR "
+						echo -e "\t             UNE TOUCHE POUR REVENIR AU MENU PRINCIPAL.            "
+						appui
+						menu-mode-client
+					;;
+					*)
+						echo -e "CHOIX INCORRECT. VOUS ALLEZ ETRE RENVOYE AU MENU PRINCIPAL. APPUYEZ SUR UNE TOUCHE POUR CONTINUER."
+						appui
+						menu-mode-client
+					;;
+				esac
+		else 
+			echo -e "\n\t        LE PAQUET SSHFS EST DEJA PRESENT DANS VOTRE APPAREIL.       "
+			echo -e "\t              -----------------------------------------         \n"
+	fi	
+}
+
+#FONCTIONNALITES GENERATION CLES
+function gener-cles()
+{
+	echo -e "-----------------------------------------------------------------------------------"
+	echo -e "\t GENERATION DES CLES EN COURS !!! IL VOUS SERA DEMANDE D' ENTREZ  UNE "
+	echo -e "\t   UNE PASSPHRASE QUI VOUS REMPLACERA LE MOT DE PASSE DU COMPTE SER-  "
+	echo -e "\t           VEUR. ELLE DOIT CONTENIR AU MOINS 5 CARACTERES.             " 
+	echo -e "-----------------------------------------------------------------------------------\n\n"
+	if test -d ~/Bureau/Paire-Cles 
+	then
+		rm -r ~/Bureau/Paire-Cles
+	fi
+	mkdir ~/Bureau/Paire-Cles >> log.txt 2>&1
+	ssh-keygen -f ~/Bureau/Paire-Cles/key >> log.txt 2>&1
+	if [ $? -ne 0 ] 
+	then
+		echo -e "\n\t UN PROBLEME EST SURVENU LORS DE LA GENERATION. VEUILLEZ REESAYER "
+		echo -e "\t       ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
+		echo -e "\t                          MENU PRINCIPAL !                        "
+		appui
+		menu-mode-client
+	else
+		echo -e "\n\n\t          GENERATION  DE LA PAIRE  DE CLES EFFECTUEE !!!"
+		echo -e "\t             --------------------------------------        \n"
+	fi
+}
+
 # FONCTION QUI APPELERA LE PREMIER SOUS MENU DE CONFIGURATION CLIENT
 function menu-config-client()
 {
@@ -7,7 +155,7 @@ function menu-config-client()
 # SOUS MENU CHARGE DE L INSTALLATION DE OPENSSH + VERIFICATION
 function menu-config-client-inst-openssh()
 {
-    resize -s 27 83
+    resize -s 29 83
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -24,11 +172,8 @@ function menu-config-client-inst-openssh()
     echo -e    "|        SERA DEMANDER DE PASSER A L ETAPE SUIVANTE DE LA CONFIGURATION.          |"
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
-    echo -e "\n \n \n \n \n \n \n \n"
-    
-
-
-    echo -e " Appuyer     sur     une     touche     pour     continuer   :  "
+    verif-openssh
+    echo -e " APPUYEZ     sur     une     touche     pour     continuer   :  "
     appui
     menu-config-client-inst-sshfs    
 }
@@ -52,11 +197,8 @@ function menu-config-client-inst-sshfs()
     echo -e    "|  DE POUVOIR MONTER UN REPERTOIRE DU SERVEUR DANS VOTRE ARBORESCNCE DE FICHIERS.  |"
     echo -e    "|                                                                                  |"
 	echo -e    "|**********************************************************************************|"
-    echo -e "\n \n \n \n \n \n \n \n"
-    
-
-
-    echo -e " Appuyer     sur     une     touche     pour     continuer   :  "
+    verif-sshfs
+    echo -e " APPUYEZ     sur     une     touche     pour     continuer   :  "
     appui
     menu-config-client-generation    
 }
@@ -64,7 +206,7 @@ function menu-config-client-inst-sshfs()
 #SOUS MENU CHARGE DE LA GENERATION DE LA PAIRE CLE VALEUR.
 function menu-config-client-generation()
 {
-    resize -s 27 84
+    resize -s 28 84
     clear
     echo -e    "|**********************************************************************************|"
     echo -e    "|                                                                                  |"
@@ -77,17 +219,13 @@ function menu-config-client-generation()
 	echo -e    "|**********************************************************************************|"
     echo -e    "|                                                                                  |"
     echo -e    "| CETTE ETAPE A POUR BUT DE VOUS AIDER A GENERER UNE PAIRE DE CLES, QUI VOUS AIDE- |"
-    echo -e    "|  DERA A VOUS AUTHENTIFIER AU PRES DE VOTRE SERVEUR. NOTEZ QUE POUR CETTE ETAPE,  |"
-    echo -e    "|  IL EST NECESSAIRE D' AVOIR LE MOT DE PASSE DU SERVEUR EN VOTRE POSSESION, FAUTE |"
-    echo -e    "|    DE QUOI ON VOUS INDIQUERA COMMENT FAIRE POUR ENVOYER VOTRE CLE PUBLIQUE AU    |"
-    echo -e    "|                                 SERVEUR !!!                                      |"
+    echo -e    "|  DERA A VOUS AUTHENTIFIER AU PRES DE VOTRE SERVEUR A DEFAUT DE L' AUTHENTIFICA-  |"
+    echo -e    "|    TION PAR MOT DE PASSE QUI VOUS EXIGEREA A CHAQUE FOIS D' ENTRER LE MOT DE     |"
+    echo -e    "|        PASSE DU COMPTE AU QUEL VOUS SOUHAITEZ VOUS CONNECTER AU SERVEUR.         |"
     echo -e    "|                                                                                  |"
 	echo -e    "|**********************************************************************************|"
-    echo -e "\n \n \n \n \n \n"
-    
-
-
-    echo -e " Appuyer     sur     une     touche     pour     continuer   :  "
+	gener-cles
+    echo -e " APPUYEZ     sur     une     touche     pour     continuer   :  "
     appui
     menu-client-configure    
 }
@@ -111,7 +249,7 @@ function menu-client-configure()
     echo -e    "|   LA CONFIGURATION DU CLIENT EST TERMINEE. VOUS POUVEZ A PRESENT UTILISER LES   |"
     echo -e    "|         DIFFERENTES FONCTIONNALITES DE SSH PROPOSES PAR NOTRE SCRIPT.           |"
     echo -e    "|                                                                                 |"
-    echo -e    "|    APPUYER   SUR   UNE   TOUCHE   POUR  REVENIR   AU   MENU   PRINCIPAL !       |"
+    echo -e    "|    APPUYEZ   SUR   UNE   TOUCHE   POUR  REVENIR   AU   MENU   PRINCIPAL !       |"
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
     appui

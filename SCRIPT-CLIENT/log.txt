@@ -1,0 +1,143 @@
+Saving key "/home/franck/Bureau/key" failed: passphrase is too short (minimum five characters)
+Generating public/private rsa key pair.
+Saving key "/home/franck/Bureau/key" failed: passphrase is too short (minimum five characters)
+Generating public/private rsa key pair.
+Passphrases do not match.  Try again.
+Passphrases do not match.  Try again.
+Saving key "/home/franck/Bureau/key" failed: passphrase is too short (minimum five characters)
+Generating public/private rsa key pair.
+Saving key "/home/franck/Bureau/key" failed: passphrase is too short (minimum five characters)
+Generating public/private rsa key pair.
+Generating public/private rsa key pair.
+Your identification has been saved in /home/franck/Bureau/key.
+Your public key has been saved in /home/franck/Bureau/key.pub.
+The key fingerprint is:
+SHA256:93y6YnZF4pUVY3TKnmn6AQ7E/KDMBtPJ7Y1xgYZ3n/Q franck@franck-HP-15-Notebook-PC
+The key's randomart image is:
++---[RSA 2048]----+
+|         . .. .=o|
+|       o.=+ .oo.+|
+|      o +oB..oo= |
+|       = + B..*oE|
+|        S =.++=  |
+|       . . =.+.  |
+|            =.o  |
+|          + .+ . |
+|         o oo..  |
++----[SHA256]-----+
+Generating public/private rsa key pair.
+/home/franck/Bureau/key already exists.
+Overwrite (y/n)? Generating public/private rsa key pair.
+Your identification has been saved in /home/franck/Bureau/key.
+Your public key has been saved in /home/franck/Bureau/key.pub.
+The key fingerprint is:
+SHA256:G04wClCX3PEFgBpo5W4HrfeadIv3NCKzjl7TL5lTVA4 franck@franck-HP-15-Notebook-PC
+The key's randomart image is:
++---[RSA 2048]----+
+|.ooo.+oo...      |
+|.oo.= .. E .     |
+|. .= .o . +      |
+|  o.o. o . .     |
+|   +.o  S        |
+|  . o oo +       |
+|     * =*o       |
+|    + X*= .      |
+|  .o.*..+o       |
++----[SHA256]-----+
+Generating public/private rsa key pair.
+/home/franck/Bureau/key already exists.
+Overwrite (y/n)? Generating public/private rsa key pair.
+Your identification has been saved in /home/franck/Bureau/key.
+Your public key has been saved in /home/franck/Bureau/key.pub.
+The key fingerprint is:
+SHA256:rzj1dvzUyMVsaZLbnNBvWDjEqU4zd4J7PoJ/+rNgMB0 franck@franck-HP-15-Notebook-PC
+The key's randomart image is:
++---[RSA 2048]----+
+|                 |
+|             . . |
+|            E +  |
+|           . =o+.|
+|        S o B+=+B|
+|        .. = *B@o|
+|       . ..o=.*++|
+|      .. .+.+=+. |
+|      .... oo*=+ |
++----[SHA256]-----+
+Generating public/private rsa key pair.
+/home/franck/Bureau/key already exists.
+Overwrite (y/n)? Generating public/private rsa key pair.
+/home/franck/Bureau/key already exists.
+Overwrite (y/n)? Saving key "/home/franck/Bureau/key" failed: passphrase is too short (minimum five characters)
+Generating public/private rsa key pair.
+Generating public/private rsa key pair.
+Your identification has been saved in /home/franck/Bureau/key.
+Your public key has been saved in /home/franck/Bureau/key.pub.
+The key fingerprint is:
+SHA256:rahlvSp5qWQulk9uAFHkKYaY34GRLdM7jB1lE0vCLGU franck@franck-HP-15-Notebook-PC
+The key's randomart image is:
++---[RSA 2048]----+
+| o+BE.*.         |
+|+o==*+ o         |
+|=o+B.o.          |
+|oo..=.   .       |
+| .. ..  S .      |
+|  .    o .       |
+|   o+.+.o        |
+|  +*++o  .       |
+| . +*+...        |
++----[SHA256]-----+
+Generating public/private rsa key pair.
+Your identification has been saved in /home/franck/Bureau/Paire-Cles/key.
+Your public key has been saved in /home/franck/Bureau/Paire-Cles/key.pub.
+The key fingerprint is:
+SHA256:5tVFJe8Day1Yc1V1LfbplaIgBjdkgwlAhx1/1mThi/A franck@franck-HP-15-Notebook-PC
+The key's randomart image is:
++---[RSA 2048]----+
+|.o++o ++ +.   o.X|
+| ....+.o*    .oo+|
+|     ooo.o   =.++|
+|      =o....oo*+o|
+|      .ES.o.o+ooo|
+|       o . .. ...|
+|        .        |
+|                 |
+|                 |
++----[SHA256]-----+
+mkdir: impossible de créer le répertoire «/home/franck/Bureau/Paire-Cles»: Le fichier existe
+Generating public/private rsa key pair.
+/home/franck/Bureau/Paire-Cles/key already exists.
+Overwrite (y/n)? Generating public/private rsa key pair.
+Passphrases do not match.  Try again.
+Your identification has been saved in /home/franck/Bureau/Paire-Cles/key.
+Your public key has been saved in /home/franck/Bureau/Paire-Cles/key.pub.
+The key fingerprint is:
+SHA256:k4y7nkMb+ygZcd0shPCUrKZYoOLz0pSIlWJB5LgtUyE franck@franck-HP-15-Notebook-PC
+The key's randomart image is:
++---[RSA 2048]----+
+|Eo. .o.o         |
+|+o . o+ .        |
+|ooo. ..o o       |
+|+=+ + .oo.o      |
+|O=oo.o. S.       |
+|o*.o. o. .       |
+|  =  +.+         |
+| . oo ++         |
+|  .  o=o.        |
++----[SHA256]-----+
+Generating public/private rsa key pair.
+Your identification has been saved in /home/franck/Bureau/Paire-Cles/key.
+Your public key has been saved in /home/franck/Bureau/Paire-Cles/key.pub.
+The key fingerprint is:
+SHA256:gqRwAItEMqnlLu7MaQzIxwBRx9eUWYXU/XPKe4bOERk franck@franck-HP-15-Notebook-PC
+The key's randomart image is:
++---[RSA 2048]----+
+|O*...  o.=o+..   |
+|*+... . + . . .  |
+|*o. ..        E. |
+|.+.o .         +o|
+|o.+ . . S    .o.o|
+|+..o   .      o. |
+|+..           .o |
+|o+.          .o.o|
+|o=           .oo |
++----[SHA256]-----+
