@@ -1,0 +1,200 @@
+#!/bin/bash
+fichier_config="/etc/ssh/sshd_config"
+
+#fonctions utilitaire
+#fonction servant a avance dans le program en fonction du choix de l'utilisateur
+function continuer_annuler(){
+    echo -e " ________________________________________________________________________________\n"
+    echo -e "Entrez 1 pour continuer vers l'etape suivante et 2 pour Annuler\n"
+    options=(Continuer Annuler)
+    select choix in ${options[@]}
+    do
+        case $REPLY in 
+            1)
+            $1;break;;
+            2)
+            $2;break;;
+            *)
+            echo "cette option n'est pas geree dans ce menu";;
+        esac
+    done
+}
+
+#function modifiant le fichier de configuration /etc/ssh/sshd_config
+#modification de lauthentification par mots de passe
+
+function accepter_passAuth(){
+    case $1 in
+        non) 
+            sudo sed -i -e 's/^PasswordAuthentication [a-z -]*/PasswordAuthentication no/' $fichier_config;;
+        oui) 
+            sudo sed -i -e 's/^PasswordAuthentication [a-z -]*/PasswordAuthentication yes/' $fichier_config;;
+    esac
+}
+#gestion des connection en root
+function accepter_connection_root(){
+    case $1 in
+        non) 
+            sudo sed -i -e 's/^PermitRootLogin [a-z -]*/PermitRootLogin no/' $fichier_config;;
+        oui) 
+            sudo sed -i -e 's/^PermitRootLogin [a-z -]*/PermitRootLogin yes/' $fichier_config;;
+    esac
+}
+
+function oui_non_root(){
+    echo -e " ________________________________________________________________________________\n"
+    echo -e "Entrez 1 pour pour accepter et 2 pour refuser\n"
+    options=(Accepter Refuser)
+    select choix in ${options[@]}
+    do
+        case $REPLY in 
+            1)
+            accepter_connection_root oui; $1 ;break;;
+            2)
+            accepter_connection_root non; $1 ;break;;
+            *)
+            echo "cette option n'est pas geree dans ce menu";;
+        esac
+    done   
+}
+
+function oui_non_pass(){
+    echo -e " ________________________________________________________________________________\n"
+    echo -e "Entrez 1 pour pour accepter et 2 pour refuser\n"
+    options=(Accepter Refuser)
+    select choix in ${options[@]}
+    do
+        case $REPLY in 
+            1)
+            accepter_passAuth oui; $1 ;break;;
+            2)
+            accepter_passAuth non; $1 ;break;;
+            *)
+            echo "cette option n'est pas geree dans ce menu";;
+        esac
+    done   
+}
+
+#function installant openssh-server
+function installer_ssh(){
+    sudo apt autoremove openssh-client
+    sudo apt install openssh-server
+    continuer_annuler gerer_passe mode_serveur
+}
+
+#fonction recuperant un numero de port entre par l'utilisateur
+function operer_changement(){
+    echo "Entrez le nouveau numero de Port :"
+	read np
+	case $np in
+		[0-9]*) 
+			case $np in
+				0) echo "Port null !!";;
+
+				*) 
+					old=`grep '^Port' $fichier_config`
+					echo "ancien : $old"
+					echo -e "Nouveau : Port $np \n"
+					sudo sed -i -e 's/^Port [0-9]*/Port '$np'/' $fichier
+				;;
+			esac
+		;;
+
+		*) echo "vous n'avez pas entrez un nombre !!!";;
+
+	esac
+}
+
+#fonction pour modifier le port
+function changer_port(){
+    resize -s 21 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\tCHANGER LE PORT DE SSH   \t  \t \t \t  |"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    echo -ne "Desirez vous modifier le port par defaut de ssh ? (oui/non)"
+    read reponse
+    case $reponse in
+        oui)
+            operer_changement; continuer_annuler fin_config fin_config;;
+        o)
+            operer_changement; continuer_annuler fin_config fin_config;;
+        non)
+            continuer_annuler fin_config fin_config;;
+        n)
+            continuer_annuler fin_config fin_config;;
+        *)
+            echo -e "vous devez repondre par oui/non ou o/n";;
+    esac
+} 
+
+#fonction menu gerant les connections en root
+function connection_root(){
+    resize -s 21 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\tCONNECTION EN SUPER-UTILISATEUR   \t  \t \t \t  |"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    message="\tIci nous vous permettons d'autoriser ou de proscrire les connections\n
+    \ten super utilisateur d'un client sur votre serveur.\n 
+    \tNous vous recommendons de refuser ce genre de connection car\n
+    \tpouvant conduire a des degats irreverssibles.\n"
+    echo -e $message
+    oui_non_root changer_port
+}
+
+#fonction gerant la question d'acceptation ou de refus d'authentification par mot de pass
+function gerer_passe(){
+    resize -s 21 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t  MODE D'AUTHENTIFICATION   \t  \t \t \t  |"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    message="\tRefuser l'authentification par mot de passe c'est privilegier uniquement\n
+    \tl'authentification par cles qui est bien plus securisee. Cependant si vous\n
+    \tvoulez vous connecter a votre serveur a partir d'une machine autre que\n
+    \tcelle avec la quelle vous avez generer vos cles ,ce sera impossible.\n
+    \tNous vous conseillons d'accepter l'authentification par mot de passe.\n
+    \tceci n'interdit pas l'authentification par cle."
+    echo -e $message
+    oui_non_pass connection_root
+}
+
+#fonction verifiant la presence des paquets essentiels ou les installant
+function installation(){
+    resize -s 16 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t       INSTALLATION    \t  \t \t \t\t  |"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    
+    dpkg -l ssh >paquets 2>erreurs.log
+    statut=$? #recuperation du statut d'execution de la commande precedente
+    msg_installation="\tVous n'avez malheureusement pas les paquets necessaires\n
+    \tvous aurez besoin de connection internet.\n
+    \tpour continuer entrez 1 pour continuer";
+    msg_confirmation="\tVous disposez deja de tous les paquets necessaires.\n
+     \tvous pouvez continuer avec la configuration de votre serveur";
+
+    if [ $statut -eq 0 ]
+     then 
+        echo -e $msg_confirmation
+        continuer_annuler gerer_passe mode_serveur 
+    else
+        echo -e $msg_installation
+        continuer_annuler installer_ssh mode_serveur 
+    fi
+}
+installation
