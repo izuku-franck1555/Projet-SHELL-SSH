@@ -48,7 +48,12 @@ function menu-mode-client()
                 break
             ;;
             2)
-                if [ $configuration_client -eq 1 ] 
+                # VERIFICATION ETAPE 1
+                if [ -e ~/Bureau/Paire-Cles/id_rsa ] 
+                    then
+                        menu-fonct-server
+                        break
+                    elif [ $configuration_client -eq 1 ] 
                     then
                         echo -e " \nVeuillez configurer le client pour avoir acces aux fonctionnalites serveur  !"
                     else
@@ -57,6 +62,12 @@ function menu-mode-client()
                 fi
 			;;
     		3)
+                # VERIFICATION ETAPE 1
+                if [ -e ~/Bureau/Paire-Cles/id_rsa ] 
+                    then
+                        menu-fonct-client
+                        break
+                fi
                 if [ $configuration_client -eq 0 -a $connexion_client -eq  1 ] 
                     then
                         echo -e " \n Veuillez connecter le client pour avoir acces a ses fonctionnalites !"
@@ -84,6 +95,13 @@ function main()
     configuration_client=1
     connexion_client=1
     montage=1
+    ipserverenvoi=''
+    portserverenvoi=''
+    nomserverenvoi=''
+    ipserver=''
+    portserver=''
+    nomserver=''
+    repmonte=''
     menu-mode-client
 }
 

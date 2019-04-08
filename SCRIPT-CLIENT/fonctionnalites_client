@@ -1,7 +1,165 @@
-# SOUS MENU POUR LE TRANSFERT VIA SCP
-function menu-fonct-client-transf-scp()
+#!/bin/bash
+
+# FONCTIONNALITES DOWNLOAD SCP
+function download-scp()
 {
-    resize -s 24 83
+	echo -e    "\n ---->   Indiquez  le  chemin  source  (repertoire dans le serveur)            \n"
+    read sourc
+    echo -e    "\n ---->   Indiquez  le  chemin   de   destination  (repertoire dans le client)  \n"
+    read desti
+    scp $nomserver@ipserver:$sourc $desti >> log.txt 2>&1
+	if [ $? -ne 0 ] 
+		then
+			echo -e "\n\t UN  PROBLEME  EST  SURVENU  LORS DE  LA COPIE. VEUILLEZ REESAYER "
+			echo -e "\t     ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
+			echo -e "\t                          MENU PRINCIPAL !                        "
+			appui
+			menu-mode-client
+	fi
+    echo -e    "\n             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n" 
+}
+
+#FONCTIONNALITES DOWNLOAD SFTP
+function download-sftp()
+{
+	echo -e    "\n ---->   Indiquez  le  chemin  source  (repertoire dans le serveur)            \n"
+    read sourc
+    echo -e    "\n ---->   Indiquez  le  chemin   de   destination  (repertoire dans le client)  \n"
+    read desti
+    echo "get -r $sourc $desti" | sftp -o Port=$portserver  $nomserver@$ipserver >> log.txt 2>&1
+	if [ $? -ne 0 ] 
+		then
+			echo -e "\n\t UN  PROBLEME  EST  SURVENU  LORS DE  LA COPIE. VEUILLEZ REESAYER "
+			echo -e "\t     ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
+			echo -e "\t                          MENU PRINCIPAL !                        "
+			appui
+			menu-mode-client
+	fi
+    echo -e    "\n             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n" 
+}
+
+# FONCTIONNALITES UPLOAD SCP
+function upload-scp()
+{
+	echo -e    "\n ---->   Indiquez  le  chemin  source : (repertoire dans le client)            \n"
+    read sourc
+    echo -e    "\n ---->   Indiquez  le  chemin  de   destination : (repertoire dans le serveur)  \n"
+    read desti
+    scp $sourc $nomserver@ipserver:$desti >> log.txt 2>&1
+	if [ $? -ne 0 ] 
+		then
+			echo -e "\n\t UN  PROBLEME  EST  SURVENU  LORS DE  LA COPIE. VEUILLEZ REESAYER "
+			echo -e "\t     ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
+			echo -e "\t                          MENU PRINCIPAL !                        "
+			appui
+			menu-mode-client
+	fi
+    echo -e    "\n             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n" 
+}
+
+#FONCTIONNALITES UPLOAD SFTP
+function upload-sftp()
+{
+	echo -e    "\n ---->   Indiquez  le  chemin  source : (repertoire dans le client)            \n"
+    read sourc
+    echo -e    "\n ---->   Indiquez  le  chemin  de   destination : (repertoire dans le serveur)  \n"
+    read desti
+    echo "put -r $sourc $desti" | sftp -o Port=$portserver  $nomserver@$ipserver >> log.txt 2>&1
+	if [ $? -ne 0 ] 
+		then
+			echo -e "\n\t UN  PROBLEME  EST  SURVENU  LORS DE  LA COPIE. VEUILLEZ REESAYER "
+			echo -e "\t     ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
+			echo -e "\t                          MENU PRINCIPAL !                        "
+			appui
+			menu-mode-client
+	fi
+    echo -e    "\n             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n" 
+}
+
+#FONCTIONNALITES MONTAGE REPERTOIRE
+function montage()
+{
+    echo -e "\n--> Indiquez  le  chemin  du  repertoire  distant  (repertoire dans le serveur)  \n"	
+	read repdistant
+	echo -e "\n--> Indiquez  le  chemin  du  repertoire  local ou il sera stocke (repertoire client) \n"
+	read repmonte
+	sshfs monserver@ipserver:$repdistant $repmonte >> log.txt 2>&1
+	if [ $? -ne 0 ] 
+		then
+			echo -e "\n\t UN  PROBLEME  EST  SURVENU  LORS  DU  MONTAGE. VEUILLEZ REESAYER "
+			echo -e "\t     ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
+			echo -e "\t                          MENU PRINCIPAL !                        "
+			appui
+			menu-mode-client
+	fi
+	echo -e "\n             VOTRE    MONTAGE    A     ETE     EFFECTUE   !!!"
+	echo -e   "                  ---------------------------------          "
+}
+
+#FONCTIONNALITES DEMONTAGE REPERTOIRE
+function demontage()
+{
+	echo -e    "\n-->  Indiquez  le  chemin  du repertoire ou s' est effectue le montage :        \n"
+	read rep
+	fusermount -u $rep >> log.txt 2>&1
+	if [ $? -ne 0 ] 
+		then
+			echo -e "\n\tUN  PROBLEME  EST  SURVENU  LORS  DU  DEMONTAGE. VEUILLEZ REESAYER "
+			echo -e "\t     ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
+			echo -e "\t                          MENU PRINCIPAL !                        "
+			appui
+			menu-mode-client
+	fi
+	echo -e "\n            VOTRE    DEMONTAGE    A     ETE     EFFECTUE   !!!"
+	echo -e   "                  ---------------------------------          "
+}
+
+#FONCTIONNALITES REDIRECTION LOCALE
+function redirection-loc()
+{
+    echo -e    "\n--->  Indiquez  le  port du  serveur auquel vous souhaitez acceder :   \n"
+    read dist
+    echo -e    "\n--->  Indiquez  le  port local qui vous permettra d' acceder au port distant : \n"
+    read loc
+	gnome-terminal -e 'bash -c "resize -s 10 10;clear;clear;echo \"REDIRECTION EN COURS\";ssh $nomserver@ipserver -NL$loc:localhost:$dist"' >> log.txt 2>&1
+	if [ $? -ne 0 ] 
+		then
+			echo -e "\n\tUN  PROBLEME  EST  SURVENU  LORS  DE  LA REDIRECTION. VEUILLEZ REESAYER "
+			echo -e "\t     ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
+			echo -e "\t                          MENU PRINCIPAL !                        "
+			appui
+			menu-mode-client
+	fi
+	echo -e "\t  POUR  ACCEDER  AU  PORT  $dist DU SERVEUR IL VOUS SUFFIRA D' ENTRER    "
+	echo -e "\t    localhost:$loc  DANS  VOTRE  NAVIGUATEUR. POUR ARRETER LA REDI-      "
+	echo -e "\t          RECTION IL SUFFIT DE FERMER LE MINI TERMINAL.                  "  
+}
+
+#FONCTIONNALITES SECURISATION 
+function securisation()
+{
+    echo -e    "\n ---->   Indiquez  le  port que vous souhaitez securise :                        \n"
+    read loc
+    echo -e    "\n ---->   Indiquez  le  port qui devra le remplacer  sur le serveur:              \n"
+    read dist
+	gnome-terminal -e 'bash -c "resize -s 10 10;clear;clear;echo \"REDIRECTION EN COURS\";ssh nomserver@$ipserver -NR$dist:localhost:$loc"' >> log.txt 2>&1
+	if [ $? -ne 0 ] 
+		then
+			echo -e "\n\tUN  PROBLEME  EST  SURVENU  LORS  DE  LA REDIRECTION. VEUILLEZ REESAYER "
+			echo -e "\t     ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
+			echo -e "\t                          MENU PRINCIPAL !                        "
+			appui
+			menu-mode-client
+	fi
+	echo -e "\t  POUR  ACCEDER  AU  PORT  $loc  DU  CIENT  IL VOUS SUFFIRA D' ENTRER    "
+	echo -e "\t  localhost:$dist DANS LE NAVIGUATEUR DU SERVEUR. POUR ARRETER LA REDI-  "
+	echo -e "\t          RECTION IL SUFFIT DE FERMER LE MINI TERMINAL.                  "  
+}
+
+# SOUS MENU POUR LE DOWNLOAD VIA SCP
+function menu-fonct-client-down-scp()
+{
+    resize -s 26 83
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -13,22 +171,17 @@ function menu-fonct-client-transf-scp()
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
-    echo -e    "|\t\t\t        TRANSFERT   VIA   SCP  \t \t \t\t  |"
+    echo -e    "|\t\t\t         DOWNLOAD   VIA   SCP  \t \t \t\t  |"
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
-    echo -e "\n"
-    echo -e    " ---->   Indiquez  le  chemin  source  (repertoire dans le serveur)                "
-    read source
-    echo -e    " ---->   Indiquez  le  chemin   de   destination  (repertoire dans le client)      "
-    read desti
-    echo -e    "             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n                    " 
+    download-scp
     echo -e    "   APPUYEZ   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
     appui
     menu-fonct-client
 }
 
-#SOUS MENU POUR LE TRANSFERT VIA SFTP
-function menu-fonct-client-transf-sftp()
+#SOUS MENU POUR LE DOWNLOAD VIA SFTP
+function menu-fonct-client-down-sftp()
 {
     resize -s 28 83
     clear
@@ -42,20 +195,65 @@ function menu-fonct-client-transf-sftp()
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
-    echo -e    "|\t\t\t        TRANSFERT   VIA   SFTP \t \t \t\t  |"
+    echo -e    "|\t\t\t         DOWNLOAD   VIA   SFTP \t \t \t\t  |"
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
     echo -e    "| VOUS  POUVEZ  MONTER VIRTUELLEMENT UN REPERTOIRE DISTANT AFIN DE FACILITER VOS  |"
     echo -e    "|   COPIES  EN ENTRANT sftp://monlogin@monserveur DANS LA BARRE D' ADRESSE DE     |"
     echo -e    "|                      VOTRE GESTIONNAIRE  DE  FICHIERS.                          |"
     echo -e    "|*********************************************************************************|"
-    echo -e    "\n"
-    echo -e    " ---->   Indiquez  le  chemin  source  (repertoire dans le serveur)                "
-    read source
-    echo -e    " ---->   Indiquez  le  chemin   de   destination  (repertoire dans le client)      "
-    read desti
-    echo -e    "             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n                    " 
+    download-sftp
+    appui
+    menu-fonct-client
+}
+
+# SOUS MENU POUR L UPLOAD VIA SCP
+function menu-fonct-client-up-scp()
+{
+    resize -s 26 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t      TRANSFERT   DE   FICHIERS\t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t          UPLOAD    VIA   SCP  \t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    upload-scp
     echo -e    "   APPUYEZ   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
+    appui
+    menu-fonct-client
+}
+
+#SOUS MENU POUR LE UPLOAD VIA SFTP
+function menu-fonct-client-up-sftp()
+{
+    resize -s 28 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    CLIENT \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t      TRANSFERT   DE   FICHIERS\t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t          UPLOAD    VIA   SFTP \t \t \t\t  |"
+    echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e    "| VOUS  POUVEZ  MONTER VIRTUELLEMENT UN REPERTOIRE DISTANT AFIN DE FACILITER VOS  |"
+    echo -e    "|   COPIES  EN ENTRANT sftp://monlogin@monserveur DANS LA BARRE D' ADRESSE DE     |"
+    echo -e    "|                      VOTRE GESTIONNAIRE  DE  FICHIERS.                          |"
+    echo -e    "|*********************************************************************************|"
+    upload-sftp
     appui
     menu-fonct-client
 }
@@ -83,30 +281,42 @@ function menu-fonct-client-transf()
     
     #VARIABLES DU MENU
 
-    me1="\t Transfert  \t  via  \t  SCP \n\n"
-    me2="\t Transfert  \t  via  \t  SFTP \n"
-    me3="\t Retourner  \t  aux  \t  fonctionnalites "
+    me1="\t Download   \t  via  \t  SCP \n\n"
+    me2="\t Download   \t  via  \t  SFTP \n"
+    me3="\t Upload     \t  via  \t  SCP \n\n"
+    me4="\t Upload     \t  via  \t  SFTP \n"
+    me5="\t Retourner  \t  aux  \t  fonctionnalites "
 
     me1=`echo -e "$me1"`
     me2=`echo -e "$me2"`
     me3=`echo -e "$me3"`
+    me4=`echo -e "$me4"`
+    me5=`echo -e "$me5"`
     
     #CHOIX DU MENU
 
     PS3="`echo -e " \n\n\n Veuillez \t faire  \t  votre  \t  choix :     "`"
 
-    select var in "$me1" "$me2" "$me3"
+    select var in "$me1" "$me2" "$me3" "$me4" "$me5"
     do 
         case $REPLY in 
 			1)	
-                menu-fonct-client-transf-scp		
+                menu-fonct-client-down-scp		
                 break
             ;;
     		2)
-                menu-fonct-client-transf-sftp		
+                menu-fonct-client-down-sftp		
                 break
 			;;
-        	3)	
+            3)	
+                menu-fonct-client-up-scp		
+                break
+            ;;
+    		4)
+                menu-fonct-client-up-sftp		
+                break
+			;;
+        	5)	
 				menu-fonct-client
 			;;
             *)
@@ -119,7 +329,7 @@ function menu-fonct-client-transf()
 #SOUS  MENU  POUR  LE  MONTAGE
 function menu-fonct-client-mont()
 {
-    resize -s 17 83
+    resize -s 22 83
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -130,9 +340,7 @@ function menu-fonct-client-mont()
     echo -e    "|\t\t\t    MONTAGE   REPERTOIRE  DISTANT   \t \t \t\t|"
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
-    echo -e    "\n"
-    echo -e    " -->  Indiquez  le  chemin  du  repertoire  distant  (repertoire dans le serveur)  "
-    read repdist
+    montage
     menu-fonct-client-mont-termine
 }
 
@@ -150,9 +358,7 @@ function menu-fonct-client-demont()
     echo -e    "|\t\t\t   DEMONTAGE   REPERTOIRE  DISTANT  \t \t \t\t|"
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
-    echo -e    "\n"
-    echo -e    " -->  Indiquez  le  chemin  du  repertoire  distant  (repertoire dans le serveur)  "
-    read repdist
+    demontage
     menu-fonct-client-demont-termine
 }
 
@@ -210,7 +416,7 @@ function menu-fonct-client-demont-termine()
 #SOUS  MENU  POUR LA REDIRECTION VERS UN PORT DISTANT
 function menu-fonct-client-redir-portloc()
 {
-    resize -s 24 83
+    resize -s 26 83
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -225,13 +431,8 @@ function menu-fonct-client-redir-portloc()
     echo -e    "|\t\t\t       REDIRECTION PORT LOCAL  \t \t \t\t  |"
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
-    echo -e "\n"
-    echo -e    " ---->   Indiquez  le  port distant  ( port du serveur)                            "
-    read dist
-    echo -e    " ---->   Indiquez  le  port local    ( port du client)                             "
-    read loc
-    echo -e    "           VOTRE     REDIRECTION     A     ETE     EFFECTUE   !!!\n                " 
-    echo -e    "   APPUYEZ   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
+    redirection-loc
+    echo -e    " \n  APPUYEZ   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES     "
     appui
     menu-fonct-client
 }   
@@ -254,11 +455,7 @@ function menu-fonct-client-redir-secur()
     echo -e    "|\t\t\t       SECURISATION PORT DISTANT\t\t \t\t|"
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
-    echo -e "\n"
-    echo -e    " ---->   Indiquez  le  port que vous souhaitez securise :                          "
-    read dist
-    echo -e    " ---->   Indiquez  le  port qui devra le remplacer  :                              "
-    read loc
+    securisation
     echo -e    "           LA   SECURISATION   DU   PORT    A    ETE    EFFECTUE   !!!\n           " 
     echo -e    "   APPUYEZ   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
     appui

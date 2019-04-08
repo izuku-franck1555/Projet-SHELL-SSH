@@ -129,10 +129,10 @@ function gener-cles()
 	echo -e "-----------------------------------------------------------------------------------\n\n"
 	if test -d ~/Bureau/Paire-Cles 
 	then
-		rm -r ~/Bureau/Paire-Cles
+		rm -r ~/Bureau/Paire-Cles >> log.txt 2>&1
 	fi
 	mkdir ~/Bureau/Paire-Cles >> log.txt 2>&1
-	ssh-keygen -f ~/Bureau/Paire-Cles/key >> log.txt 2>&1
+	ssh-keygen -f ~/Bureau/Paire-Cles/id_rsa >> log.txt 2>&1
 	if [ $? -ne 0 ] 
 	then
 		echo -e "\n\t UN PROBLEME EST SURVENU LORS DE LA GENERATION. VEUILLEZ REESAYER "
@@ -247,7 +247,7 @@ function menu-client-configure()
 	echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
     echo -e    "|   LA CONFIGURATION DU CLIENT EST TERMINEE. VOUS POUVEZ A PRESENT UTILISER LES   |"
-    echo -e    "|         DIFFERENTES FONCTIONNALITES DE SSH PROPOSES PAR NOTRE SCRIPT.           |"
+    echo -e    "|        DIFFERENTES FONCTIONNALITES DE SSH PROPOSEES PAR NOTRE SCRIPT.           |"
     echo -e    "|                                                                                 |"
     echo -e    "|    APPUYEZ   SUR   UNE   TOUCHE   POUR  REVENIR   AU   MENU   PRINCIPAL !       |"
     echo -e    "|                                                                                 |"
