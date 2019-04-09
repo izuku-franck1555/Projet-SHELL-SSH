@@ -67,7 +67,7 @@ function verif-sshfs()
     echo -e "\t        VOTRE MOT DE PASSE DANS LE CAS OU VOUS NE POSSEDERIEZ         "
 	echo -e "\t                         PAS LE PAQUET.                               "
 	echo -e "-----------------------------------------------------------------------------------\n\n"
-	verif=`dpkg -l | grep ssh | tr -s ' ' | cut -d ' ' -f2`
+	verif=`dpkg -l | grep sshfs | tr -s ' ' | cut -d ' ' -f2`
 	if [ "$verif" = "" ]
 		then
 			echo -e "\tVOUS NE POSSEDEZ PAS LE PAQUET SSHFS. SOUHAITEZ VOUS INSTALLER ? (Y/N)"

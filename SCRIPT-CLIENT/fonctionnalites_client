@@ -7,7 +7,7 @@ function download-scp()
     read sourc
     echo -e    "\n ---->   Indiquez  le  chemin   de   destination  (repertoire dans le client)  \n"
     read desti
-    scp $nomserver@ipserver:$sourc $desti >> log.txt 2>&1
+    scp -r $nomserver@$ipserver:$sourc $desti >> log.txt 2>&1
 	if [ $? -ne 0 ] 
 		then
 			echo -e "\n\t UN  PROBLEME  EST  SURVENU  LORS DE  LA COPIE. VEUILLEZ REESAYER "
@@ -16,7 +16,7 @@ function download-scp()
 			appui
 			menu-mode-client
 	fi
-    echo -e    "\n             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n" 
+    echo -e    "\n                  VOTRE     COPIE     A     ETE     EFFECTUEE   !!!\n" 
 }
 
 #FONCTIONNALITES DOWNLOAD SFTP
@@ -35,7 +35,7 @@ function download-sftp()
 			appui
 			menu-mode-client
 	fi
-    echo -e    "\n             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n" 
+    echo -e    "\n                  VOTRE     COPIE     A     ETE     EFFECTUEE   !!!\n" 
 }
 
 # FONCTIONNALITES UPLOAD SCP
@@ -45,7 +45,7 @@ function upload-scp()
     read sourc
     echo -e    "\n ---->   Indiquez  le  chemin  de   destination : (repertoire dans le serveur)  \n"
     read desti
-    scp $sourc $nomserver@ipserver:$desti >> log.txt 2>&1
+    scp -r $sourc $nomserver@$ipserver:$desti >> log.txt 2>&1
 	if [ $? -ne 0 ] 
 		then
 			echo -e "\n\t UN  PROBLEME  EST  SURVENU  LORS DE  LA COPIE. VEUILLEZ REESAYER "
@@ -54,7 +54,7 @@ function upload-scp()
 			appui
 			menu-mode-client
 	fi
-    echo -e    "\n             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n" 
+    echo -e    "\n                  VOTRE     COPIE     A     ETE     EFFECTUEE   !!!\n" 
 }
 
 #FONCTIONNALITES UPLOAD SFTP
@@ -73,7 +73,7 @@ function upload-sftp()
 			appui
 			menu-mode-client
 	fi
-    echo -e    "\n             VOTRE     COPIE     A     ETE     EFFECTUE   !!!\n" 
+    echo -e    "\n                  VOTRE     COPIE     A     ETE     EFFECTUEE   !!!\n" 
 }
 
 #FONCTIONNALITES MONTAGE REPERTOIRE
@@ -83,7 +83,7 @@ function montage()
 	read repdistant
 	echo -e "\n--> Indiquez  le  chemin  du  repertoire  local ou il sera stocke (repertoire client) \n"
 	read repmonte
-	sshfs monserver@ipserver:$repdistant $repmonte >> log.txt 2>&1
+	sshfs $nomserver@$ipserver:$repdistant $repmonte -o nonempty >> log.txt 2>&1
 	if [ $? -ne 0 ] 
 		then
 			echo -e "\n\t UN  PROBLEME  EST  SURVENU  LORS  DU  MONTAGE. VEUILLEZ REESAYER "
@@ -121,7 +121,9 @@ function redirection-loc()
     read dist
     echo -e    "\n--->  Indiquez  le  port local qui vous permettra d' acceder au port distant : \n"
     read loc
-	gnome-terminal -e 'bash -c "resize -s 10 10;clear;clear;echo \"REDIRECTION EN COURS\";ssh $nomserver@ipserver -NL$loc:localhost:$dist"' >> log.txt 2>&1
+    export loc
+    export dist
+	gnome-terminal -e 'bash -c "resize -s 10 10;clear;clear;echo \"REDIRECTION EN COURS...\";ssh $nomserver@$ipserver -NL$loc:localhost:$dist"' >> log.txt 2>&1
 	if [ $? -ne 0 ] 
 		then
 			echo -e "\n\tUN  PROBLEME  EST  SURVENU  LORS  DE  LA REDIRECTION. VEUILLEZ REESAYER "
@@ -142,7 +144,7 @@ function securisation()
     read loc
     echo -e    "\n ---->   Indiquez  le  port qui devra le remplacer  sur le serveur:              \n"
     read dist
-	gnome-terminal -e 'bash -c "resize -s 10 10;clear;clear;echo \"REDIRECTION EN COURS\";ssh nomserver@$ipserver -NR$dist:localhost:$loc"' >> log.txt 2>&1
+	gnome-terminal -e 'bash -c "resize -s 10 10;clear;clear;echo \"REDIRECTION EN COURS...\";ssh $nomserver@$ipserver -NR$dist:localhost:$loc"' >> log.txt 2>&1
 	if [ $? -ne 0 ] 
 		then
 			echo -e "\n\tUN  PROBLEME  EST  SURVENU  LORS  DE  LA REDIRECTION. VEUILLEZ REESAYER "
@@ -203,6 +205,7 @@ function menu-fonct-client-down-sftp()
     echo -e    "|                      VOTRE GESTIONNAIRE  DE  FICHIERS.                          |"
     echo -e    "|*********************************************************************************|"
     download-sftp
+    echo -e    "   APPUYEZ   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
     appui
     menu-fonct-client
 }
@@ -254,6 +257,7 @@ function menu-fonct-client-up-sftp()
     echo -e    "|                      VOTRE GESTIONNAIRE  DE  FICHIERS.                          |"
     echo -e    "|*********************************************************************************|"
     upload-sftp
+    echo -e    "   APPUYEZ   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
     appui
     menu-fonct-client
 }
@@ -456,7 +460,7 @@ function menu-fonct-client-redir-secur()
     echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
     securisation
-    echo -e    "           LA   SECURISATION   DU   PORT    A    ETE    EFFECTUE   !!!\n           " 
+    echo -e    "\n           LA   SECURISATION   DU   PORT    A    ETE    EFFECTUE   !!!\n           " 
     echo -e    "   APPUYEZ   SUR    UNE    TOUCHE   POUR    REVENIR   AUX    FONCTIONNALITES       "
     appui
     menu-fonct-client
