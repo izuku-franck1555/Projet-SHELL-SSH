@@ -1,1 +1,8 @@
 
+cp: cannot stat '/home/adess/Bureau/Paire-Cles/id_rsa': No such file or directory
+cp: cannot stat '/home/adess/Bureau/Paire-Cles/id_rsa.pub': No such file or directory
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/adess/.ssh/id_rsa.pub"
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+
+/usr/bin/ssh-copy-id: ERROR: ssh: connect to host 103.103.193.9 port 22: No route to host
+
