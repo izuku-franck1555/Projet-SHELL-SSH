@@ -1,0 +1,45 @@
+
+fichier='/etc/ssh/sshd_config'
+
+demarer_serveur(){
+sudo service ssh start
+}
+
+redemarer_serveur(){
+sudo service ssh restart
+}
+
+recharger(){
+/etc/init.d/ssh reload
+}
+test1(){
+
+#variable
+  log=~/.ssh/authorized_keys
+  log1=~/.ssh/f1
+
+#script
+
+   cut -d " " -f 3 $log > $log1
+   cut -d "@" -f 1 $log1
+
+}
+
+accepte_user(){
+	sudo chmod 777 $fichier
+	echo "Entrez les noms des utilisateurs qui sont autotiser à se connecter au serveur (séparés par des espaces) :"
+	read
+	echo "AllowUsers $REPLY" >> $fichier
+	sudo chmod a-x,g-w,o-w $fichier
+}
+
+
+refus_user(){
+	sudo chmod 777 $fichier
+	echo "Entrez les noms des utilisateurs à qui l'accès sera interdit (séparés par des espaces) :"
+	read
+	echo "DenyUsers $REPLY" >> $fichier
+	sudo chmod a-x,g-w,o-w $fichier
+}
+
+
