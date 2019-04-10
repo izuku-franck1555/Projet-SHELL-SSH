@@ -1,5 +1,5 @@
-#!/bin/bash
-fichier_config="/etc/ssh/sshd_config"
+
+fichier_config="/home/adess/Desktop/sshd_config"
 
 #fonctions utilitaire
 #fonction servant a avance dans le program en fonction du choix de l'utilisateur
@@ -25,19 +25,45 @@ function continuer_annuler(){
 
 function accepter_passAuth(){
     case $1 in
-        non) 
-            sudo sed -i -e 's/^PasswordAuthentication [a-z -]*/PasswordAuthentication no/' $fichier_config;;
+        non)
+            sudo sed -i s/"^PasswordAuthentication [a-z -]*"/"PasswordAuthentication no"/ $fichier_config; 
+            sudo sed -i s/"^#PasswordAuthentication [a-z -]*"/"PasswordAuthentication no"/ $fichier_config;;
         oui) 
-            sudo sed -i -e 's/^PasswordAuthentication [a-z -]*/PasswordAuthentication yes/' $fichier_config;;
+            sudo sed -i s/"^PasswordAuthentication [a-z -]*"/"PasswordAuthentication yes"/ $fichier_config;
+            sudo sed -i s/"^#PasswordAuthentication [a-z -]*"/"PasswordAuthentication yes"/ $fichier_config;;
+    esac
+}
+
+function accepter_cleAuth(){
+    case $1 in
+        non)
+            sudo sed -i s/"^PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication no"/ $fichier_config; 
+            sudo sed -i s/"^#PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication no"/ $fichier_config;;
+        oui) 
+            sudo sed -i s/"^PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication yes"/ $fichier_config;
+            sudo sed -i s/"^#PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication yes"/ $fichier_config;;
+    esac
+}
+
+function accepter_Auth(){
+    case $1 in
+        non)
+            accepter_cleAuth non
+            accepter_passAuth non;;
+        oui) 
+            accepter_cleAuth oui
+            accepter_passAuth oui;;
     esac
 }
 #gestion des connection en root
 function accepter_connection_root(){
     case $1 in
         non) 
-            sudo sed -i -e 's/^PermitRootLogin [a-z -]*/PermitRootLogin no/' $fichier_config;;
+            sudo sed -i s/"^PermitRootLogin [a-z -]*"/"PermitRootLogin no"/ $fichier_config;
+            sudo sed -i s/"^#PermitRootLogin [a-z -]*"/"PermitRootLogin no"/ $fichier_config;;
         oui) 
-            sudo sed -i -e 's/^PermitRootLogin [a-z -]*/PermitRootLogin yes/' $fichier_config;;
+            sudo sed -i s/"^PermitRootLogin [a-z -]*"/"PermitRootLogin yes"/ $fichier_config;
+            sudo sed -i s/"^#PermitRootLogin [a-z -]*"/"PermitRootLogin yes"/ $fichier_config;;
     esac
 }
 
@@ -83,27 +109,74 @@ function installer_ssh(){
 }
 
 #fonction recuperant un numero de port entre par l'utilisateur
-function operer_changement(){
-    echo "Entrez le nouveau numero de Port :"
-	read np
+function operer_changement_port(){
+    echo -ne "Entrez le numero du port que vous voulez utilisez :"
+    read np
+     while test $np != [0-9]*
+        do 
+            echo "vous n'avez pas entrez un nombre !!!"
+            echo -ne "ressaisissez le numero du port que vous voulez utilisez :"
+	        read np
+        done
 	case $np in
 		[0-9]*) 
 			case $np in
 				0) echo "Port null !!";;
-
 				*) 
-					old=`grep '^Port' $fichier_config`
-					echo "ancien : $old"
+					old=`grep "^#Port" $fichier_config`
+                    old2=`grep "^Port" $fichier_config`
+					test old=''&& echo "ancien : $old2"||echo "ancien : $old2"
 					echo -e "Nouveau : Port $np \n"
-					sudo sed -i -e 's/^Port [0-9]*/Port '$np'/' $fichier
+                    sudo sed -i s/"^Port [0-9]*"/"Port $np"/ $fichier_config
+					sudo sed -i s/"^#Port [0-9]*"/"Port $np"/ $fichier_config
 				;;
 			esac
 		;;
-
-		*) echo "vous n'avez pas entrez un nombre !!!";;
+		*);;
 
 	esac
 }
+
+function fin_config(){
+    resize -s 21 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t\t  FIN CONFIG   \t \t \t \t\t  |"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    echo -e "\n\n\n\n\t\t VOTRE SERVEUR SSH A ETE CONFIGURER AVEC SUCCES :) \n\n\n\n";
+    
+}
+
+function interdire_con_graph(){
+    resize -s 21 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t\t GERER L'OPTION GRAPHIQUE \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    echo -e "Desirez vous interdire aux clients de lancer des applications"
+    echo -e "\ngraphiques sur votre serveur?(oui/non)"
+    read rep
+    case $rep in 
+        oui|o|O)
+            sudo sed -i s/"^X11Forwarding [a-z]*"/"X11Forwarding no"/ $fichier_config;
+            sudo sed -i s/"^#X11Forwarding [a-z]*"/"X11Forwarding no"/ $fichier_config
+            echo -e "\noption validee\n";;
+        non|n|N) 
+            sudo sed -i s/"^X11Forwarding [a-z]*"/"X11Forwarding yes"/ $fichier_config;
+            sudo sed -i s/"^#X11Forwarding [a-z]*"/"X11Forwarding yes"/ $fichier_config
+            echo -e "\noption validee\n";;
+        *)
+            echo -e "vous devez repondre par oui ou par non";;
+        esac
+    continuer_annuler fin_config fin_config
+}
+
 
 #fonction pour modifier le port
 function changer_port(){
@@ -119,13 +192,13 @@ function changer_port(){
     read reponse
     case $reponse in
         oui)
-            operer_changement; continuer_annuler fin_config fin_config;;
-        o)
-            operer_changement; continuer_annuler fin_config fin_config;;
+            operer_changement_port; continuer_annuler interdire_con_graph interdire_con_graph;;
+        o|O)
+            operer_changement_port; continuer_annuler interdire_con_graph interdire_con_graph;;
         non)
-            continuer_annuler fin_config fin_config;;
-        n)
-            continuer_annuler fin_config fin_config;;
+            continuer_annuler interdire_con_graph interdire_con_graph;;
+        n|N)
+            continuer_annuler interdire_con_graph interdire_con_graph;;
         *)
             echo -e "vous devez repondre par oui/non ou o/n";;
     esac
@@ -137,7 +210,7 @@ function connection_root(){
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
-    echo -e    "|\t\t\tCONNECTION EN SUPER-UTILISATEUR   \t  \t \t \t  |"
+    echo -e    "|\t\t\tCONNECTION EN SUPER-UTILISATEUR   \t \t \t \t|"
 	echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
     echo -e "\n"
@@ -159,14 +232,21 @@ function gerer_passe(){
 	echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
     echo -e "\n"
-    message="\tRefuser l'authentification par mot de passe c'est privilegier uniquement\n
-    \tl'authentification par cles qui est bien plus securisee. Cependant si vous\n
-    \tvoulez vous connecter a votre serveur a partir d'une machine autre que\n
-    \tcelle avec la quelle vous avez generer vos cles ,ce sera impossible.\n
-    \tNous vous conseillons d'accepter l'authentification par mot de passe.\n
-    \tceci n'interdit pas l'authentification par cle."
+    message="choississez le mode deconnection de vos clients .Nous vous conseillons de choisir l'option 3 si vous voulez que le client puisse se connecter de n'importe quel machine differente de celle avec la quelle il a creer ses cles\n"
+    local option1=`echo -e "authentification_par_mot_de_passe_seulement"`
+    local option2=`echo -e "authentification_par_cles_seulement"`
+    local option3=`echo -e "utiliser_les_deux_modes_precedent_a_la_fois"`
     echo -e $message
-    oui_non_pass connection_root
+    select choix in $option1 $option2 $option3
+    do
+        case $REPLY in
+            1)accepter_passAuth oui; echo -e "option validee\n";break;;
+            2)accepter_cleAuth oui; echo -e "option validee\n";break;;
+            3)accepter_Auth oui; echo -e "option validee\n" ;break;;
+            *)echo "choix non gerer";;
+        esac
+    done
+    continuer_annuler connection_root connection_root
 }
 
 #fonction verifiant la presence des paquets essentiels ou les installant
