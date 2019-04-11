@@ -188,7 +188,7 @@ function interdire_con_graph(){
         *)
             echo -e "vous devez repondre par oui ou par non";;
         esac
-    continuer_annuler fin_config fin_config
+    continuer_annuler fin_config menu_princ 
 }
 
 
@@ -206,13 +206,13 @@ function changer_port(){
     read reponse
     case $reponse in
         oui)
-            operer_changement_port; continuer_annuler interdire_con_graph interdire_con_graph;;
+            operer_changement_port; continuer_annuler interdire_con_graph menu_princ ;;
         o|O)
-            operer_changement_port; continuer_annuler interdire_con_graph interdire_con_graph;;
+            operer_changement_port; continuer_annuler interdire_con_graph menu_princ ;;
         non)
-            continuer_annuler interdire_con_graph interdire_con_graph;;
+            continuer_annuler interdire_con_graph menu_princ ;;
         n|N)
-            continuer_annuler interdire_con_graph interdire_con_graph;;
+            continuer_annuler interdire_con_graph menu_princ ;;
         *)
             echo -e "vous devez repondre par oui/non ou o/n";;
     esac
@@ -260,7 +260,7 @@ function gerer_passe(){
             *)echo "choix non gerer";;
         esac
     done
-    continuer_annuler connection_root connection_root
+    continuer_annuler connection_root menu_princ 
 }
 
 #fonction verifiant la presence des paquets essentiels ou les installant
@@ -285,9 +285,9 @@ function installation(){
     if [ $statut -eq 0 ]
      then 
         echo -e $msg_confirmation
-        continuer_annuler gerer_passe mode_serveur 
+        continuer_annuler gerer_passe menu_princ 
     else
         echo -e $msg_installation
-        continuer_annuler installer_ssh mode_serveur 
+        continuer_annuler installer_ssh menu_princ  
     fi
 }
