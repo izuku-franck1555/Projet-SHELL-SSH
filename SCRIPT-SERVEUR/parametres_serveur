@@ -1,2 +1,146 @@
 #!/bin/bash
-#   Menu principal cote serveur !
+fichier_config="/home/adess/Desktop/sshd_config"
+
+recupere_ip(){
+    adrss=`ip address|grep -n inet|grep -e "^11"|cut -d: -f2|cut -d' ' -f6`
+    echo $adrss
+}
+
+recupere_utilisateur(){
+    echo $LOGNAME
+}
+
+recupere_port(){
+    port1=`grep "^#Port" $fichier_config |cut -d" " -f2`
+    port2=`grep "^Port" $fichier_config |cut -d" " -f2`
+    if test $port1=""
+       then 
+        echo $port2
+    else
+        echo $port1
+    fi
+}
+
+recupere_passAuth(){
+    pass1=`grep "^#PasswordAuthentication" $fichier_config |cut -d" " -f2`
+    pass2=`grep "^PasswordAuthentication" $fichier_config |cut -d" " -f2`
+    if test $pass1=""
+       then 
+        if test $pass2="yes"
+            then 
+                echo "accepter"
+        else
+                echo "refuser"
+        fi    
+    else
+        if test $pass1="yes"
+            then 
+                echo "accepter"
+        else
+                echo "refuser"
+        fi   
+    fi
+}
+
+recupere_cleAuth(){
+    pass1=`grep "^#PubkeyAuthentication" $fichier_config |cut -d" " -f2`
+    pass2=`grep "^PubkeyAuthentication" $fichier_config |cut -d" " -f2`
+    if test $pass1=""
+       then 
+        if test $pass2="yes"
+            then 
+                echo "accepter"
+        else
+                echo "refuser"
+        fi    
+    else
+        if test $pass1="yes"
+            then 
+                echo "accepter"
+        else
+                echo "refuser"
+        fi   
+    fi
+}
+ 
+option_graphique(){
+    pass1=`grep "^#X11Forwarding" $fichier_config |cut -d" " -f2`
+    pass2=`grep "^X11Forwarding" $fichier_config |cut -d" " -f2`
+    if test $pass1=""
+       then 
+        if test $pass2="yes"
+            then 
+                echo "accepter"
+        else
+                echo "refuser"
+        fi    
+    else
+        if test $pass1="yes"
+            then 
+                echo "accepter"
+        else
+                echo "refuser"
+        fi   
+    fi
+}
+
+recupere_connect_root(){
+    key1=`grep "^#PermitRootLogin" $fichier_config |cut -d" " -f2`
+    key2=`grep "^PermitRootLogin" $fichier_config |cut -d" " -f2`
+    if test $key1=""
+       then 
+        if test $key2="yes"
+            then 
+                echo "accepter"
+        else
+                echo "refuser"
+        fi    
+    else
+        if test $key1="yes"
+            then 
+                echo "accepter"
+        else
+                echo "refuser"
+        fi   
+    fi
+}
+
+r
+
+parametres(){
+    resize -s 21 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t\t PARAMETRES  DU SERVEUR \t\t\t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    ip=`recupere_ip`
+    utilisateur=`recupere_utilisateur`
+    port=`recupere_port`
+    pass=`recupere_passAuth`
+    cle=`recupere_cleAuth`
+    connect_root=`recupere_connect_root`
+    graphique=`option_graphique`
+    echo -e "\tadresse ip :___________________________________$ip"
+    echo -e "\tnom d'utilisateur :____________________________$utilisateur"
+    echo -e "\tport ssh :_____________________________________$port"
+    echo -e "\tauthentification par mot de passe :____________$pass"
+    echo -e "\tauthentification par mot de cle : _____________$cle"
+    echo -e "\tconnection en root :___________________________$connect_root"
+    echo -e "\toption graphique :_____________________________$graphique"
+    echo -e "\n\n___________________________________________________________________________________\n"
+    
+    echo -e "Entrez 1 pour revenir au menu principal\n"
+    options=(revinir_au_menu_principale)
+    select choix in ${options[@]}
+    do
+        case $REPLY in 
+            1)
+            menu_princ;;
+            *)
+            echo "cette option n'est pas geree dans ce menu";;
+        esac
+    done   
+}

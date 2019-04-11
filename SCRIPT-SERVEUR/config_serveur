@@ -1,4 +1,3 @@
-
 fichier_config="/home/adess/Desktop/sshd_config"
 
 #fonctions utilitaire
@@ -112,7 +111,7 @@ function installer_ssh(){
 function operer_changement_port(){
     echo -ne "Entrez le numero du port que vous voulez utilisez :"
     read np
-     while test $np != [0-9]*
+    until [[ $np = +([0-9]) ]]
         do 
             echo "vous n'avez pas entrez un nombre !!!"
             echo -ne "ressaisissez le numero du port que vous voulez utilisez :"
@@ -137,6 +136,21 @@ function operer_changement_port(){
 	esac
 }
 
+aller_au_menuprinc(){
+    echo -e " ________________________________________________________________________________\n"
+    echo -e "Entrez 1 pour revenir au menu principal\n"
+    options=(revinir_au_menu_principale)
+    select choix in ${options[@]}
+    do
+        case $REPLY in 
+            1)
+            menu_princ;;
+            *)
+            echo "cette option n'est pas geree dans ce menu";;
+        esac
+    done   
+}
+
 function fin_config(){
     resize -s 21 83
     clear
@@ -147,7 +161,7 @@ function fin_config(){
 	echo -e    "|*********************************************************************************|"
     echo -e "\n"
     echo -e "\n\n\n\n\t\t VOTRE SERVEUR SSH A ETE CONFIGURER AVEC SUCCES :) \n\n\n\n";
-    
+    aller_au_menuprinc    
 }
 
 function interdire_con_graph(){
@@ -232,7 +246,7 @@ function gerer_passe(){
 	echo -e    "|                                                                                 |"
 	echo -e    "|*********************************************************************************|"
     echo -e "\n"
-    message="choississez le mode deconnection de vos clients .Nous vous conseillons de choisir l'option 3 si vous voulez que le client puisse se connecter de n'importe quel machine differente de celle avec la quelle il a creer ses cles\n"
+    message="choississez le mode deconnection de vos clients .Nous vous conseillons de choisir\nl'option 3 si vous voulez que le client puisse se connecter de n'importe quel \nmachine differente de celle avec la quelle il a creer ses cles\n"
     local option1=`echo -e "authentification_par_mot_de_passe_seulement"`
     local option2=`echo -e "authentification_par_cles_seulement"`
     local option3=`echo -e "utiliser_les_deux_modes_precedent_a_la_fois"`
@@ -277,4 +291,3 @@ function installation(){
         continuer_annuler installer_ssh mode_serveur 
     fi
 }
-installation

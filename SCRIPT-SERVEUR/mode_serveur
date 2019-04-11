@@ -1,2 +1,29 @@
 #!/bin/bash
-cp /etc/ssh/sshd_config fichier_config_copie
+source config_serveur
+source fonctionnalites_serveur
+source parametres_serveur
+
+menu_princ(){
+    resize -s 21 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t\t\t\t  MODE SERVEUR   \t\t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    
+    options_menu=(configurer_le_serveur----------------- fonctionnalites_du_serveur------------ visualiser_vos_parametres_actuels----- quitter-------------------------------)
+    select choix in ${options_menu[@]}
+    do
+        case $REPLY in
+            1)installation;;
+            2)menu_fonctio;;
+            3)parametres;;
+            4)break;;
+            *)
+            echo "veuillez entrer le numero correspondant a votre choix";;
+        esac
+    done
+}
+menu_princ
