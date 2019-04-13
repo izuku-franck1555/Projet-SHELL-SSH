@@ -3,7 +3,7 @@ source config_serveur
 source fonctionnalites_serveur
 source parametres_serveur
 
-menu_princ(){
+menu_princ_serveur(){
     resize -s 21 83
     clear
     echo -e    "|*********************************************************************************|"
@@ -30,4 +30,3 @@ menu_princ(){
         esac
     done
 }
-menu_princ

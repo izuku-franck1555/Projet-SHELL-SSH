@@ -1,0 +1,51 @@
+#!/bin/bash
+source SCRIPT-CLIENT/mode_client
+source SCRIPT-SERVEUR/mode_serveur
+
+resize -s 22 83
+clear
+echo -e    "|*********************************************************************************|"
+echo -e    "|                                                                                 |"
+echo -e    "|\t \t \t  BIENVENUE SUR NOTRE SCRIPT SSH ! \t\t\t\t|"
+echo -e    "|                                                                                 |"
+echo -e    "|*********************************************************************************|"
+echo -e    "|                                                                                 |"
+echo -e    "|   CE  SCRIPT  A  POUR  BUT DE  VOUS FACILITEZ L' ACCES AUX DIFFERENTS  SERVICES |"
+echo -e    "|     OFFERTS PAR  LE  PROTOCOLE  SSH, LE TOUT  SANS  LA  MOINDRE CONNAISANCE A   |"
+echo -e    "|       CE  PROPOS. VEUILLEZ  POUR COMMENCER  EFFECTUER LE CHOIX DE VOTRE MODE    |"
+echo -e    "|                                  D' UTILISATION.                                |"
+echo -e    "|                                                                                 |"
+echo -e    "|*********************************************************************************|"
+echo -e    "\n"
+
+me1="\t   MODE   \t      SERVEUR \n\n"
+me2="\t   MODE   \t      CLIENT               \n"
+me3="\t   QUITTER  "
+
+me1=`echo -e "$me1"`
+me2=`echo -e "$me2"`
+me3=`echo -e "$me3"`
+    
+    #CHOIX DU MENU
+
+PS3="`echo -e " \n\n\n Veuillez \t faire  \t  votre  \t  choix :     "`"
+
+select var in "$me1" "$me2" "$me3" 
+    do 
+        case $REPLY in 
+			1)	
+                menu_princ_serveur	
+                break
+            ;;
+    		2)
+                main		
+                break
+			;;
+            3)	
+                exit
+            ;;
+            *)
+                PS3="`echo -e " \n Veuillez       faire       un       choix       valide :     "`"
+            ;;
+		esac	
+    done 
