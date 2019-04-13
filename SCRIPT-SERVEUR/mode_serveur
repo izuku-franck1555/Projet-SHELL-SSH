@@ -20,7 +20,7 @@ menu_princ(){
             1)
             installation;;
             2)
-            menu_fonctio;;
+            menu-fonct-serveur;;
             3)
             parametres;;
             4)

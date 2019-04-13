@@ -1,0 +1,224 @@
+#!/bin/bash
+function appui()
+{
+    x='ab';while [[ "$x" == "ab" ]]; do read -n1 x; done 
+}
+
+fichier='/etc/ssh/sshd_config'
+# FONCTION DE DEMARRAGE DU SERVRUR
+function demarer_serveur(){
+sudo service ssh start
+echo "succes du demarrage"
+echo "Taper une touche pour revenir au menu principale"
+appui
+menu-fonct-serveur
+}
+
+# FONCTION DE REDEMARAGE DU SERVEUR
+function redemarer_serveur(){
+sudo service ssh restart
+echo "succes du redemarrage du serveur"
+echo "Taper une touche pour revenir au menu principale"
+appui
+menu-fonct-serveur
+}
+
+
+arreter_serveur(){
+    sudo service ssh stop
+    echo -e "\nserveur arreter avec succes"
+    echo -e "Taper une touche pour revenir au menu principale"
+appui
+menu-fonct-serveur
+}
+
+# FONCTION DE RECHARGE DU SERVEUR
+function recharger_serveur(){
+/etc/init.d/ssh reload
+echo -e "\nrechargement avec succes "
+appui
+menu-fonct-serveur
+}
+
+function constitu_liste(){
+#variable
+  log=~/.ssh/authorized_keys
+  log1=~/.ssh/f1
+# corp de la fonction
+   cut -d " " -f 3 $log > $log1
+   cut -d "@" -f 1 $log1 > liste
+   nb_ligne=`grep -c "" liste`
+}
+
+# FONCTION DE LISTING DES UTILISATEURS ENREGISTRES
+function lister_utilisateur(){
+    resize -s 18 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   LISTE DES UTILISATEURS ENREGISTRES \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    
+    constitu_liste    
+    echo "nombre d'utilisateur(s): $nb_ligne"
+    cut -d "@" -f 1 $log1
+echo -e "\nappuyer une touche pour revenir au menu principal"
+appui
+menu-fonct-serveur
+}
+
+# FONCTION D'AUTHORISATION DES CLIENTS
+function accepter_utilisateur(){
+	sudo chmod 777 $fichier
+	echo "Entrez le nom de l'utilisateur autotiser à se connecter au serveur:"
+	read nom
+    presence=`grep $nom $fichier > recherche`
+    if test -s recherche
+    then
+        auth=`grep "^AllowUsers $nom" $fichier > recherche`
+        if test -s recherche
+        then
+            echo "utilisateur deja authorise"
+        else
+            sudo sed -i s/"DenyUsers $nom"/"AllowUsers $nom"/ $fichier
+        fi
+    else
+	    echo "AllowUsers $nom" >> $fichier
+    fi
+    possibilites=(o O oui Oui OUI n N non Non NON)
+    echo "Voulez vous authoriser un autre utilisateur?(oui/non)"
+    read rep 
+    while echo $rep in ${possibilites[@]}>>echo 2>>erreurs 
+    do
+        case $rep in
+            o|O|oui|Oui|OUI)
+            accepter_utilisateur;;
+            n|N|non|Non|NON)
+            break;;
+            *)
+            echo "vous devez repondre par oui ou par non"
+            echo -n "entrez votre reponse : "; read rep;;
+        esac
+    done
+	sudo chmod a-x,g-w,o-w $fichier
+    echo "utilisateur(s) accepte(s)"
+echo "appuyer une touche pour revenir au menu principal"
+appui
+menu-fonct-serveur
+}
+
+# FONCTION D'INTERDICTION DES CLIENTS
+function refuser_utilisateur(){
+	sudo chmod 777 $fichier
+	echo "Entrez le nom de l'utilisateur à refuser:"
+	read nom
+    presence=`grep $nom $fichier > recherche`
+    if test -s recherche
+    then
+        auth=`grep "^DenyUsers $nom" $fichier > recherche`
+        if test -s recherche
+        then
+            echo "utilisateur deja authorise"
+        else
+            sudo sed -i s/"AllowUsers $nom"/"DenyUsers $nom"/ $fichier
+        fi
+    else
+	    echo "DenyUsers $nom" >> $fichier
+    fi
+    possibilites=(o O oui Oui OUI n N non Non NON)
+    echo "Voulez vous refusez un autre utilisateur?(oui/non)"
+    read rep 
+    while echo $rep in ${possibilites[@]}>>echo 2>>erreurs 
+    do
+        case $rep in
+            o|O|oui|Oui|OUI)
+            accepter_utilisateur;;
+            n|N|non|Non|NON)
+            break;;
+            *)
+            echo "vous devez repondre par oui ou par non"
+            echo -n "entrez votre reponse : "; read rep;;
+        esac
+    done
+    sudo chmod a-x,g-w,o-w $fichier
+     echo "utilisateur(s) refuse(s)"
+echo "appuyer une touche pour revenir au menu principal"
+appui
+menu-fonct-serveur
+}
+
+# FONCTION DU MENU DES FONCTIONNALITES DU SERVEUR
+function menu-fonct-serveur()
+{
+    resize -s 18 83
+    clear
+    echo -e    "|*********************************************************************************|"
+    echo -e    "|                                                                                 |"
+    echo -e    "|\t \t \t   FONCTIONNALITES   DU    SERVEUR \t\t\t\t|"
+	echo -e    "|                                                                                 |"
+	echo -e    "|*********************************************************************************|"
+    echo -e "\n"
+    
+    #VARIABLES DU MENU
+    me1="demarrer__le__serveur\n"
+    me2="redemarer__le__serveur\n"
+    me3="recharger__le__serveur\n"
+    me4="lister__les__utilisateurs__enregistres\n"
+    me5="autoriser__les__clients\n"
+    me6="interdir__les__clients\n"
+    me7="arreter__le__serveur\n"
+    me8="quitter"
+ 
+    me1=`echo -e "$me1"`
+    me2=`echo -e "$me2"`
+    me3=`echo -e "$me3"`
+    me4=`echo -e "$me4"`
+    me5=`echo -e "$me5"`
+    me6=`echo -e "$me6"`
+    me7=`echo -e "$me7"`
+    me8=`echo -e "$me8"`
+
+    #CHOIX DU MENU
+
+    PS3="`echo -e " \n\n Veuillez__faire__votre__choix : "`"
+    select var in "$me1" "$me2" "$me3" "$me4" "$me5" "$me6" "$me7" "$me8"
+    do 
+        case $REPLY in 
+			1)	
+                demarer_serveur		
+                break
+            ;;
+    		2)
+                redemarer_serveur		
+                break
+			;;
+            3)
+                recharger_serveur
+                        break
+			;;
+        	4)
+                lister_utilisateur		
+                break
+			;;
+            5)
+                accepter_utilisateur	
+                break
+			;;
+
+            6)	
+				refuser_utilisateur
+                 break
+			;;
+            7)	
+				arreter_serveur
+			;;
+            8)
+                menu_princ
+            ;;
+            *)
+                PS3="`echo -e " \n Veuillez__faire__un__choix__valide : "`"
+            ;;
+		esac	
+    done
+}
