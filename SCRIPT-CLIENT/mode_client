@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source config_client
-source etablir_communication
-source fonctionnalites_client
+source SCRIPT-CLIENT/config_client
+source SCRIPT-CLIENT/etablir_communication
+source SCRIPT-CLIENT/fonctionnalites_client
 
 # FONCTION QUI S OCCUPE D APPUYEZ SUR UNE TOUCHE POUR CONTINUER
 function appui()
