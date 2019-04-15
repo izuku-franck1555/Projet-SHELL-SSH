@@ -102,6 +102,10 @@ function main()
     portserver=''
     nomserver=''
     repmonte=''
+    if [ -e ~/.ssh/id_rsa ] 
+    then
+        configuration_client=0
+    fi
     connecte=0
     menu-mode-client
 }
