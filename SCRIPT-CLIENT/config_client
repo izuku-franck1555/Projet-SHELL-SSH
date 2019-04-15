@@ -131,25 +131,20 @@ function gener-cles()
 	then
 		rm -r ~/Bureau/Paire-Cles >> log.txt 2>&1
 	fi
-	mkdir ~/Bureau/Paire-Cles >> log.txt 2>&1
-	ssh-keygen -f ~/Bureau/Paire-Cles/id_rsa >> log.txt 2>&1
-	if [ $? -ne 0 ] 
-	then
-		echo -e "\n\t UN PROBLEME EST SURVENU LORS DE LA GENERATION. VEUILLEZ REESAYER "
-		echo -e "\t       ULTERIEUREMENT. APPUYEZ SUR UNE TOUCHE POUR REVENIR AU     "
-		echo -e "\t                          MENU PRINCIPAL !                        "
-		appui
-		menu-mode-client
-	else
-		echo -e "\n\n\t          GENERATION  DE LA PAIRE  DE CLES EFFECTUEE !!!"
-		echo -e "\t             --------------------------------------        \n"
-	fi
 	if test -d ~/Desktop/Paire-Cles 
 	then
 		rm -r ~/Desktop/Paire-Cles >> log.txt 2>&1
 	fi
-	mkdir ~/Desktop/Paire-Cles >> log.txt 2>&1
-	ssh-keygen -f ~/Desktop/Paire-Cles/id_rsa >> log.txt 2>&1
+	if [ -d ~/Bureau ]
+	then
+		mkdir ~/Bureau/Paire-Cles >> log.txt 2>&1
+		ssh-keygen -f ~/Bureau/Paire-Cles/id_rsa >> log.txt 2>&1
+	fi
+	if [ -d ~/Desktop ]
+	then
+		mkdir ~/Desktop/Paire-Cles >> log.txt 2>&1
+		ssh-keygen -f ~/Desktop/Paire-Cles/id_rsa >> log.txt 2>&1
+	fi
 	if [ $? -ne 0 ] 
 	then
 		echo -e "\n\t UN PROBLEME EST SURVENU LORS DE LA GENERATION. VEUILLEZ REESAYER "
