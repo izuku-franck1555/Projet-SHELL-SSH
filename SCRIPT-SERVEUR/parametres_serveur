@@ -1,5 +1,5 @@
 #!/bin/bash
-fichier_config="/home/adess/Desktop/sshd_config"
+fichier_config="/etc/ssh/sshd_config"
 
 recupere_ip(){
     adrss=`ip address|grep -n inet|grep -e "^11"|cut -d: -f2|cut -d' ' -f6`
