@@ -1,4 +1,4 @@
-fichier_config="/home/adess/Desktop/sshd_config"
+fichier_config="/etc/ssh/sshd_config"
 
 #fonctions utilitaire
 #fonction servant a avance dans le program en fonction du choix de l'utilisateur
