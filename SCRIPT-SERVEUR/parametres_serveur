@@ -136,7 +136,7 @@ parametres(){
     do
         case $REPLY in 
             1)
-            menu_princ;;
+            menu_princ_serveur;;
             *)
             echo "cette option n'est pas geree dans ce menu";;
         esac

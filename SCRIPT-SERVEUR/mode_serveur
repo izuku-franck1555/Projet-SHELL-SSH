@@ -24,9 +24,11 @@ menu_princ_serveur(){
             3)
             parametres;;
             4)
-            break;;
+            break
+            ;;
             *)
             echo "veuillez entrer le numero correspondant a votre choix";;
         esac
     done
 }
+menu_princ_serveur

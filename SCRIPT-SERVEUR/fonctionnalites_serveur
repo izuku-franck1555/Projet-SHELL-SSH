@@ -215,7 +215,7 @@ function menu-fonct-serveur()
 				arreter_serveur
 			;;
             8)
-                menu_princ
+                menu_princ_serveur
             ;;
             *)
                 PS3="`echo -e " \n Veuillez__faire__un__choix__valide : "`"

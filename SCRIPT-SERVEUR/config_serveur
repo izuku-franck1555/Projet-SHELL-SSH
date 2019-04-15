@@ -144,7 +144,7 @@ aller_au_menuprinc(){
     do
         case $REPLY in 
             1)
-            menu_princ;;
+            menu_princ_serveur;;
             *)
             echo "cette option n'est pas geree dans ce menu";;
         esac
@@ -188,7 +188,7 @@ function interdire_con_graph(){
         *)
             echo -e "vous devez repondre par oui ou par non";;
         esac
-    continuer_annuler fin_config menu_princ 
+    continuer_annuler fin_config menu_princ_serveur 
 }
 
 
@@ -206,13 +206,13 @@ function changer_port(){
     read reponse
     case $reponse in
         oui)
-            operer_changement_port; continuer_annuler interdire_con_graph menu_princ ;;
+            operer_changement_port; continuer_annuler interdire_con_graph menu_princ_serveur ;;
         o|O)
-            operer_changement_port; continuer_annuler interdire_con_graph menu_princ ;;
+            operer_changement_port; continuer_annuler interdire_con_graph menu_princ_serveur ;;
         non)
-            continuer_annuler interdire_con_graph menu_princ ;;
+            continuer_annuler interdire_con_graph menu_princ_serveur ;;
         n|N)
-            continuer_annuler interdire_con_graph menu_princ ;;
+            continuer_annuler interdire_con_graph menu_princ_serveur ;;
         *)
             echo -e "vous devez repondre par oui/non ou o/n";;
     esac
@@ -260,7 +260,7 @@ function gerer_passe(){
             *)echo "choix non gerer";;
         esac
     done
-    continuer_annuler connection_root menu_princ 
+    continuer_annuler connection_root menu_princ_serveur 
 }
 
 #fonction verifiant la presence des paquets essentiels ou les installant
@@ -277,6 +277,7 @@ function installation(){
     
     dpkg -l ssh >paquets 2>erreurs.log
     rm erreurs.log
+    rm paquets
     statut=$? #recuperation du statut d'execution de la commande precedente
     msg_installation="\tVous n'avez malheureusement pas les paquets necessaires\n
     \tvous aurez besoin de connection internet.\n
@@ -287,9 +288,9 @@ function installation(){
     if [ $statut -eq 0 ]
      then 
         echo -e $msg_confirmation
-        continuer_annuler gerer_passe menu_princ 
+        continuer_annuler gerer_passe menu_princ_serveur 
     else
         echo -e $msg_installation
-        continuer_annuler installer_ssh menu_princ  
+        continuer_annuler installer_ssh menu_princ_serveur
     fi
 }

@@ -105,4 +105,4 @@ function main()
     connecte=0
     menu-mode-client
 }
-
+main

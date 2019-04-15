@@ -1,6 +1,4 @@
 #!/bin/bash
-source SCRIPT-CLIENT/mode_client
-source SCRIPT-SERVEUR/mode_serveur
 
 resize -s 22 83
 clear
@@ -34,11 +32,13 @@ select var in "$me1" "$me2" "$me3"
     do 
         case $REPLY in 
 			1)	
-                menu_princ_serveur	
+                chmod a+x SCRIPT-SERVEUR/mode_serveur
+                ./SCRIPT-SERVEUR/mode_serveur	
                 break
             ;;
     		2)
-                main		
+                chmod a+x SCRIPT-CLIENT/mode_client
+                ./SCRIPT-CLIENT/mode_client
                 break
 			;;
             3)	
