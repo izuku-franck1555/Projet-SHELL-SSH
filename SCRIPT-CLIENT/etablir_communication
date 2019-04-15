@@ -8,19 +8,22 @@ function envoi-cle()
 	read portserverenvoi
 	echo -e "\n\t---> ENTREZ LE NOM DU COMPTE SERVEUR OU VOUS VOULEZ FAIRE L' ENVOI  :   "
 	read nomserverenvoi
-	if [ -d ~/Bureau/Paire-Cles -o -e ~/.ssh/id_rsa ]
+	if [ -d ~/Bureau/Paire-Cles -o -e ~/.ssh/id_rsa -o -d ~/Desktop/Paire-Cles ]
 	then 
 		case $ipserverenvoi in
 			#(([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$))
 			[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*)
 				case $portserverenvoi in
 					0*)
-						if [ -e ~/Bureau/Paire-Cles/id_rsa -o -e ~/.ssh/id_rsa ] 
+						if [ -e ~/Bureau/Paire-Cles/id_rsa -o -e ~/.ssh/id_rsa -o -e ~/Desktop/Paire-Cles/id_rsa ] 
 						then
                             mkdir ".ssh" >> log.txt 2>&1
 							mv ~/Bureau/Paire-Cles/id_rsa ~/.ssh >> log.txt 2>&1
+							mv ~/Desktop/Paire-Cles/id_rsa ~/.ssh >> log.txt 2>&1
 							mv ~/Bureau/Paire-Cles/id_rsa.pub ~/.ssh >> log.txt 2>&1
+							mv ~/Desktop/Paire-Cles/id_rsa.pub ~/.ssh >> log.txt 2>&1
 							rm -r ~/Bureau/Paire-Cles >> log.txt 2>&1
+							rm -r ~/Desktop/Paire-Cles >> log.txt 2>&1
 							ssh-copy-id -i ~/.ssh/id_rsa.pub $nomserverenvoi@$ipserverenvoi >> log.txt 2>&1
 							if [ $? -ne 0 ] 
 							then
@@ -38,10 +41,12 @@ function envoi-cle()
 						fi
 					;;	                         
 					[1-9]*)				
-						if [ -e ~/Bureau/Paire-Cles/id_rsa -o -e ~/.ssh/id_rsa ]  
+						if [ -e ~/Bureau/Paire-Cles/id_rsa -o -e ~/.ssh/id_rsa -o -e ~/Desktop/Paire-Cles/id_rsa ]  
 						then
 							cp ~/Bureau/Paire-Cles/id_rsa ~/.ssh >> log.txt 2>&1
 							cp ~/Bureau/Paire-Cles/id_rsa.pub ~/.ssh >> log.txt 2>&1
+							cp ~/Desktop/Paire-Cles/id_rsa ~/.ssh >> log.txt 2>&1
+							cp ~/Desktop/Paire-Cles/id_rsa.pub ~/.ssh >> log.txt 2>&1
 							ssh-copy-id -i ~/.ssh/id_rsa.pub -p $portserverenvoi $nomserverenvoi@$ipserverenvoi >> log.txt 2>&1
                             if [ $? -ne 0 ] 
 							then
@@ -82,6 +87,7 @@ function envoi-cle()
 	echo -e "\n\tL' ENVOI DES CLES S' EST EFFECTUE SANS PROBLEME. VOUS POUVEZ DES " 
 	echo -e   "\t  A PRESENT  VOUS CONNECTEZ  A L' AIDE DE VOTRE PASSPHRASE !!!   \n"
     rm -r ~/Bureau/Paire-Cles >> log.txt 2>&1 
+	rm -r ~/Desktop/Paire-Cles >> log.txt 2>&1 
 }
 
 #FONCTIONNALITES CONNEXION

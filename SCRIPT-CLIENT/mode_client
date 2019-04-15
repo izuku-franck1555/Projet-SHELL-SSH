@@ -49,7 +49,7 @@ function menu-mode-client()
             ;;
             2)
                 # VERIFICATION ETAPE 1
-                if [ -e ~/Bureau/Paire-Cles/id_rsa -o -e ~/.ssh/id_rsa ] 
+                if [ -e ~/Bureau/Paire-Cles/id_rsa -o -e ~/.ssh/id_rsa -o -e ~/Desktop/Paire-Cles/id_rsa ] 
                     then
                         menu-fonct-server
                         break
