@@ -24,7 +24,7 @@ menu_princ_serveur(){
             3)
             parametres;;
             4)
-            break
+            exit
             ;;
             *)
             echo "veuillez entrer le numero correspondant a votre choix";;
