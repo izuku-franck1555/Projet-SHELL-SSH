@@ -48,6 +48,7 @@ function constitu_liste(){
    cut -d " " -f 3 $log > $log1
    cut -d "@" -f 1 $log1 > liste
    nb_ligne=`grep -c "" liste`
+   rm liste
 }
 
 # FONCTION DE LISTING DES UTILISATEURS ENREGISTRES

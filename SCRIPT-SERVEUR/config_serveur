@@ -264,6 +264,7 @@ function gerer_passe(){
 }
 
 #fonction verifiant la presence des paquets essentiels ou les installant
+
 function installation(){
     resize -s 16 83
     clear
@@ -275,6 +276,7 @@ function installation(){
     echo -e "\n"
     
     dpkg -l ssh >paquets 2>erreurs.log
+    rm erreurs.log
     statut=$? #recuperation du statut d'execution de la commande precedente
     msg_installation="\tVous n'avez malheureusement pas les paquets necessaires\n
     \tvous aurez besoin de connection internet.\n
