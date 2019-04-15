@@ -161,7 +161,7 @@ function securisation()
 # SOUS MENU POUR LE DOWNLOAD VIA SCP
 function menu-fonct-client-down-scp()
 {
-    resize -s 26 83
+    resize -s 26 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -185,7 +185,7 @@ function menu-fonct-client-down-scp()
 #SOUS MENU POUR LE DOWNLOAD VIA SFTP
 function menu-fonct-client-down-sftp()
 {
-    resize -s 28 83
+    resize -s 28 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -213,7 +213,7 @@ function menu-fonct-client-down-sftp()
 # SOUS MENU POUR L UPLOAD VIA SCP
 function menu-fonct-client-up-scp()
 {
-    resize -s 26 83
+    resize -s 26 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -237,7 +237,7 @@ function menu-fonct-client-up-scp()
 #SOUS MENU POUR LE UPLOAD VIA SFTP
 function menu-fonct-client-up-sftp()
 {
-    resize -s 28 83
+    resize -s 28 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -265,7 +265,7 @@ function menu-fonct-client-up-sftp()
 # SOUS MENU POUR LE TRANSFERT DE FICHIERS
 function menu-fonct-client-transf()
 {
-    resize -s 25 83
+    resize -s 25 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -333,7 +333,7 @@ function menu-fonct-client-transf()
 #SOUS  MENU  POUR  LE  MONTAGE
 function menu-fonct-client-mont()
 {
-    resize -s 22 83
+    resize -s 22 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -351,7 +351,7 @@ function menu-fonct-client-mont()
 #SOUS  MENU  POUR  LE  DEMONTAGE
 function menu-fonct-client-demont()
 {
-    resize -s 17 83
+    resize -s 17 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -369,7 +369,7 @@ function menu-fonct-client-demont()
 # SOUS MENU POUR LE MONTAGE  TERMINEE
 function menu-fonct-client-mont-termine()
 {
-    resize -s 17 83
+    resize -s 17 83 >> log.txt
     clear
     montage=0
     echo -e    "|*********************************************************************************|"
@@ -395,7 +395,7 @@ function menu-fonct-client-mont-termine()
 # SOUS MENU POUR LE DEMONTAGE  TERMINEE
 function menu-fonct-client-demont-termine()
 {
-    resize -s 17 83
+    resize -s 17 83 >> log.txt
     clear
     montage=1
     echo -e    "|*********************************************************************************|"
@@ -420,7 +420,7 @@ function menu-fonct-client-demont-termine()
 #SOUS  MENU  POUR LA REDIRECTION VERS UN PORT DISTANT
 function menu-fonct-client-redir-portloc()
 {
-    resize -s 26 83
+    resize -s 26 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -444,7 +444,7 @@ function menu-fonct-client-redir-portloc()
 #SOUS  MENU  POUR LA SECURISATION
 function menu-fonct-client-redir-secur()
 {
-    resize -s 24 83
+    resize -s 24 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -469,7 +469,7 @@ function menu-fonct-client-redir-secur()
 # SOUS MENU POUR LA REDIRECTION
 function menu-fonct-client-redir()
 {
-    resize -s 28 83
+    resize -s 28 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -527,7 +527,7 @@ function menu-fonct-client-redir()
 # FONCTION DU MENU DES FONCTIONNALITES DU CLIENT
 function menu-fonct-client()
 {
-    resize -s 18 83
+    resize -s 18 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"

@@ -106,7 +106,7 @@ recupere_connect_root(){
 }
 
 parametres(){
-    resize -s 21 83
+    resize -s 21 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"

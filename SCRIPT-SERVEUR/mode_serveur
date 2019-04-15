@@ -4,7 +4,7 @@ source SCRIPT-SERVEUR/fonctionnalites_serveur
 source SCRIPT-SERVEUR/parametres_serveur
 
 menu_princ_serveur(){
-    resize -s 21 83
+    resize -s 21 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
