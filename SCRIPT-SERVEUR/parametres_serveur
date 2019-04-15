@@ -105,8 +105,6 @@ recupere_connect_root(){
     fi
 }
 
-r
-
 parametres(){
     resize -s 21 83
     clear
