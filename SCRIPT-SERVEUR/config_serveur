@@ -213,16 +213,12 @@ function changer_port(){
     echo -ne "Desirez vous modifier le port par defaut de ssh ? (oui/non)"
     read reponse
     case $reponse in
-        oui)
+        o|O|oui|OUI|Oui)
             operer_changement_port; continuer_annuler interdire_con_graph menu_princ_serveur ;;
-        o|O)
-            operer_changement_port; continuer_annuler interdire_con_graph menu_princ_serveur ;;
-        non)
-            continuer_annuler interdire_con_graph menu_princ_serveur ;;
-        n|N)
+        n|N|non|Non|NON)
             continuer_annuler interdire_con_graph menu_princ_serveur ;;
         *)
-            echo -e "vous devez repondre par oui/non ou o/n";;
+        echo -e "vous devez repondre par oui/non ou o/n";;
     esac
 } 
 
