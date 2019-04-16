@@ -167,7 +167,7 @@ function menu-config-client()
 # SOUS MENU CHARGE DE L INSTALLATION DE OPENSSH + VERIFICATION
 function menu-config-client-inst-openssh()
 {
-    resize -s 29 83
+    resize -s 29 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -193,7 +193,7 @@ function menu-config-client-inst-openssh()
 # SOUS MENU CHARGE DE L INSTALLATION DE SSHFS + VERIFICATION
 function menu-config-client-inst-sshfs()
 {
-    resize -s 27 84
+    resize -s 27 84 >> log.txt
     clear
     echo -e    "|**********************************************************************************|"
     echo -e    "|                                                                                  |"
@@ -218,7 +218,7 @@ function menu-config-client-inst-sshfs()
 #SOUS MENU CHARGE DE LA GENERATION DE LA PAIRE CLE VALEUR.
 function menu-config-client-generation()
 {
-    resize -s 28 84
+    resize -s 28 84 >> log.txt
     clear
     echo -e    "|**********************************************************************************|"
     echo -e    "|                                                                                  |"
@@ -245,7 +245,7 @@ function menu-config-client-generation()
 #SOUS MENU CHARGE DE RETOURNER AU MENU PRINCIPAL DU CLIENT
 function menu-client-configure()
 {
-    resize -s 17 83
+    resize -s 17 83 >> log.txt
     clear
     configuration_client=0
     echo -e    "|*********************************************************************************|"

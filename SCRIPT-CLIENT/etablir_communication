@@ -153,7 +153,7 @@ function connexion()
 # SOUS MENU ENVOI  DES  CLES
 function menu-fonct-server-envoi()
 {
-    resize -s 26 84
+    resize -s 26 84 >> log.txt
     clear
     echo -e    "|**********************************************************************************|"
     echo -e    "|                                                                                  |"
@@ -181,7 +181,7 @@ function menu-fonct-server-envoi()
 # SOUS MENU POUR LA CONNEXION  AU SERVEUR
 function menu-fonct-server-conn()
 {
-    resize -s 21 83
+    resize -s 21 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -202,7 +202,7 @@ function menu-fonct-server-conn()
 #SOUS  MENU  POUR  LA  DECONNECTION 
 function menu-fonct-server-deconn()
 {
-    resize -s 17 83
+    resize -s 17 83 >> log.txt
     clear
     connexion_client=1
     echo -e    "|*********************************************************************************|"
@@ -227,7 +227,7 @@ function menu-fonct-server-deconn()
 # MENU PRINCIPAL FONCTIONNALITES  SERVEUR
 function menu-fonct-server()
 {
-    resize -s 18 83
+    resize -s 18 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"

@@ -4,7 +4,11 @@ source SCRIPT-SERVEUR/fonctionnalites_serveur
 source SCRIPT-SERVEUR/parametres_serveur
 
 menu_princ_serveur(){
+<<<<<<< HEAD
     resize -s 15 50
+=======
+    resize -s 21 83 >> log.txt
+>>>>>>> 95386584c32931660ff534fbd42d7082f8fc6e5e
     clear
     echo -e    "|************************************************|"
     echo -e    "|                                                |"

@@ -53,7 +53,7 @@ function constitu_liste(){
 
 # FONCTION DE LISTING DES UTILISATEURS ENREGISTRES
 function lister_utilisateur(){
-    resize -s 18 83
+    resize -s 18 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -152,7 +152,7 @@ menu-fonct-serveur
 # FONCTION DU MENU DES FONCTIONNALITES DU SERVEUR
 function menu-fonct-serveur()
 {
-    resize -s 18 83
+    resize -s 18 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
