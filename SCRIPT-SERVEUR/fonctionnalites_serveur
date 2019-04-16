@@ -105,6 +105,9 @@ function accepter_utilisateur(){
 	sudo chmod a-x,g-w,o-w $fichier
     echo "utilisateur(s) accepte(s)"
 echo "appuyer une touche pour revenir au menu principal"
+rm echo
+rm erreurs
+rm recherche
 appui
 menu-fonct-serveur
 }
@@ -145,6 +148,9 @@ function refuser_utilisateur(){
     sudo chmod a-x,g-w,o-w $fichier
      echo "utilisateur(s) refuse(s)"
 echo "appuyer une touche pour revenir au menu principal"
+rm echo
+rm erreurs
+rm recherche
 appui
 menu-fonct-serveur
 }
