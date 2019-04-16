@@ -4,13 +4,13 @@ source SCRIPT-SERVEUR/fonctionnalites_serveur
 source SCRIPT-SERVEUR/parametres_serveur
 
 menu_princ_serveur(){
-    resize -s 21 83
+    resize -s 15 50
     clear
-    echo -e    "|*********************************************************************************|"
-    echo -e    "|                                                                                 |"
-    echo -e    "|\t\t\t\t  MODE SERVEUR   \t\t\t\t\t|"
-	echo -e    "|                                                                                 |"
-	echo -e    "|*********************************************************************************|"
+    echo -e    "|************************************************|"
+    echo -e    "|                                                |"
+    echo -e    "|\t\t MODE SERVEUR  \t\t\t |"
+	echo -e    "|                                                |"
+	echo -e    "|************************************************|"
     echo -e "\n"
     
     options_menu=(configurer_le_serveur----------------- fonctionnalites_du_serveur------------ visualiser_vos_parametres_actuels----- quitter-------------------------------)

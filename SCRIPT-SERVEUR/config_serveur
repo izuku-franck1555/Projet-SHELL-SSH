@@ -29,7 +29,9 @@ function accepter_passAuth(){
             sudo sed -i s/"^#PasswordAuthentication [a-z -]*"/"PasswordAuthentication no"/ $fichier_config;;
         oui) 
             sudo sed -i s/"^PasswordAuthentication [a-z -]*"/"PasswordAuthentication yes"/ $fichier_config;
-            sudo sed -i s/"^#PasswordAuthentication [a-z -]*"/"PasswordAuthentication yes"/ $fichier_config;;
+            sudo sed -i s/"^#PasswordAuthentication [a-z -]*"/"PasswordAuthentication yes"/ $fichier_config;
+            sudo sed -i s/"^PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication no"/ $fichier_config; 
+            sudo sed -i s/"^#PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication no"/ $fichier_config;;
     esac
 }
 
@@ -40,18 +42,24 @@ function accepter_cleAuth(){
             sudo sed -i s/"^#PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication no"/ $fichier_config;;
         oui) 
             sudo sed -i s/"^PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication yes"/ $fichier_config;
-            sudo sed -i s/"^#PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication yes"/ $fichier_config;;
+            sudo sed -i s/"^#PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication yes"/ $fichier_config;
+            sudo sed -i s/"^PasswordAuthentication [a-z -]*"/"PasswordAuthentication no"/ $fichier_config; 
+            sudo sed -i s/"^#PasswordAuthentication [a-z -]*"/"PasswordAuthentication no"/ $fichier_config;;
     esac
 }
 
 function accepter_Auth(){
     case $1 in
         non)
-            accepter_cleAuth non
-            accepter_passAuth non;;
+            sudo sed -i s/"^PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication no"/ $fichier_config;
+            sudo sed -i s/"^#PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication no"/ $fichier_config;
+            sudo sed -i s/"^PasswordAuthentication [a-z -]*"/"PasswordAuthentication no"/ $fichier_config; 
+            sudo sed -i s/"^#PasswordAuthentication [a-z -]*"/"PasswordAuthentication no"/ $fichier_config;;
         oui) 
-            accepter_cleAuth oui
-            accepter_passAuth oui;;
+           sudo sed -i s/"^PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication yes"/ $fichier_config;
+            sudo sed -i s/"^#PubkeyAuthentication [a-z -]*"/"PubkeyAuthentication yes"/ $fichier_config;
+            sudo sed -i s/"^PasswordAuthentication [a-z -]*"/"PasswordAuthentication yes"/ $fichier_config; 
+            sudo sed -i s/"^#PasswordAuthentication [a-z -]*"/"PasswordAuthentication yes"/ $fichier_config;;
     esac
 }
 #gestion des connection en root
@@ -111,9 +119,9 @@ function installer_ssh(){
 function operer_changement_port(){
     echo -ne "Entrez le numero du port que vous voulez utilisez :"
     read np
-    until [[ $np = +([0-9]) ]]
+    until [[ $np = +([0-9]) ]] ; test $np -le 65535 
         do 
-            echo "vous n'avez pas entrez un nombre !!!"
+            echo "vous n'avez pas entrez un nombre valide!!!"
             echo -ne "ressaisissez le numero du port que vous voulez utilisez :"
 	        read np
         done
@@ -165,7 +173,7 @@ function fin_config(){
 }
 
 function interdire_con_graph(){
-    resize -s 21 83
+    resize -s 20 83
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -194,7 +202,7 @@ function interdire_con_graph(){
 
 #fonction pour modifier le port
 function changer_port(){
-    resize -s 21 83
+    resize -s 18 83
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -238,7 +246,7 @@ function connection_root(){
 
 #fonction gerant la question d'acceptation ou de refus d'authentification par mot de pass
 function gerer_passe(){
-    resize -s 21 83
+    resize -s 16 83
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -266,7 +274,7 @@ function gerer_passe(){
 #fonction verifiant la presence des paquets essentiels ou les installant
 
 function installation(){
-    resize -s 16 83
+    resize -s 18 83
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"

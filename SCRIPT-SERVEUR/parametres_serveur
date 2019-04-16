@@ -13,7 +13,7 @@ recupere_utilisateur(){
 recupere_port(){
     port1=`grep "^#Port" $fichier_config |cut -d" " -f2`
     port2=`grep "^Port" $fichier_config |cut -d" " -f2`
-    if test $port1=""
+    if test $port1 =null
        then 
         echo $port2
     else
@@ -24,85 +24,25 @@ recupere_port(){
 recupere_passAuth(){
     pass1=`grep "^#PasswordAuthentication" $fichier_config |cut -d" " -f2`
     pass2=`grep "^PasswordAuthentication" $fichier_config |cut -d" " -f2`
-    if test $pass1=""
-       then 
-        if test $pass2="yes"
-            then 
-                echo "accepter"
-        else
-                echo "refuser"
-        fi    
-    else
-        if test $pass1="yes"
-            then 
-                echo "accepter"
-        else
-                echo "refuser"
-        fi   
-    fi
+    echo "${pass1:-""} ${pass2:-""}"
 }
 
 recupere_cleAuth(){
     pass1=`grep "^#PubkeyAuthentication" $fichier_config |cut -d" " -f2`
     pass2=`grep "^PubkeyAuthentication" $fichier_config |cut -d" " -f2`
-    if test $pass1=""
-       then 
-        if test $pass2="yes"
-            then 
-                echo "accepter"
-        else
-                echo "refuser"
-        fi    
-    else
-        if test $pass1="yes"
-            then 
-                echo "accepter"
-        else
-                echo "refuser"
-        fi   
-    fi
+    echo "${pass1:-""} ${pass2:-""}"
 }
  
 option_graphique(){
     pass1=`grep "^#X11Forwarding" $fichier_config |cut -d" " -f2`
     pass2=`grep "^X11Forwarding" $fichier_config |cut -d" " -f2`
-    if test $pass1=""
-       then 
-        if test $pass2="yes"
-            then 
-                echo "accepter"
-        else
-                echo "refuser"
-        fi    
-    else
-        if test $pass1="yes"
-            then 
-                echo "accepter"
-        else
-                echo "refuser"
-        fi   
-    fi
+    echo "${pass1:-""} ${pass2:-""}"
 }
 
 recupere_connect_root(){
     key1=`grep "^#PermitRootLogin" $fichier_config |cut -d" " -f2`
     key2=`grep "^PermitRootLogin" $fichier_config |cut -d" " -f2`
-    if test $key1=""
-       then 
-        if test $key2="yes"
-            then 
-                echo "accepter"
-        else
-                echo "refuser"
-        fi    
-    else
-        if test $key1="yes"
-            then 
-                echo "accepter"
-        else
-                echo "refuser"
-        fi   
-    fi
+    echo "${key1:-""} ${key2:-""}"
 }
 
 parametres(){
@@ -121,13 +61,13 @@ parametres(){
     cle=`recupere_cleAuth`
     connect_root=`recupere_connect_root`
     graphique=`option_graphique`
-    echo -e "\tadresse ip :___________________________________$ip"
-    echo -e "\tnom d'utilisateur :____________________________$utilisateur"
-    echo -e "\tport ssh :_____________________________________$port"
-    echo -e "\tauthentification par mot de passe :____________$pass"
-    echo -e "\tauthentification par mot de cle : _____________$cle"
-    echo -e "\tconnection en root :___________________________$connect_root"
-    echo -e "\toption graphique :_____________________________$graphique"
+    echo -ne "\n\tadresse ip :___________________________________ $ip"
+    echo -ne "\n\tnom d'utilisateur :____________________________ $utilisateur"
+    echo -ne "\n\tport ssh :_____________________________________ $port"
+    echo -ne "\n\tauthentification par mot de passe :____________$pass"
+    echo -ne "\n\tauthentification par mot de cle : _____________$cle"
+    echo -ne "\n\tconnection en root :___________________________$connect_root"
+    echo -ne "\n\toption graphique :_____________________________$graphique"
     echo -e "\n\n___________________________________________________________________________________\n"
     
     echo -e "Entrez 1 pour revenir au menu principal\n"
