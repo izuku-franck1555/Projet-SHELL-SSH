@@ -173,11 +173,7 @@ function fin_config(){
 }
 
 function interdire_con_graph(){
-<<<<<<< HEAD
-    resize -s 20 83
-=======
     resize -s 21 83 >> log.txt
->>>>>>> 95386584c32931660ff534fbd42d7082f8fc6e5e
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -206,11 +202,7 @@ function interdire_con_graph(){
 
 #fonction pour modifier le port
 function changer_port(){
-<<<<<<< HEAD
-    resize -s 18 83
-=======
-    resize -s 21 83 >> log.txt
->>>>>>> 95386584c32931660ff534fbd42d7082f8fc6e5e
+    resize -s 18 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -254,11 +246,7 @@ function connection_root(){
 
 #fonction gerant la question d'acceptation ou de refus d'authentification par mot de pass
 function gerer_passe(){
-<<<<<<< HEAD
-    resize -s 16 83
-=======
-    resize -s 21 83 >> log.txt
->>>>>>> 95386584c32931660ff534fbd42d7082f8fc6e5e
+    resize -s 16 83 >> log.txt
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
@@ -286,11 +274,7 @@ function gerer_passe(){
 #fonction verifiant la presence des paquets essentiels ou les installant
 
 function installation(){
-<<<<<<< HEAD
-    resize -s 18 83
-=======
     resize -s 16 83 >> log.txt
->>>>>>> 95386584c32931660ff534fbd42d7082f8fc6e5e
     clear
     echo -e    "|*********************************************************************************|"
     echo -e    "|                                                                                 |"
