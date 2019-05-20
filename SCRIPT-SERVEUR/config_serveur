@@ -280,15 +280,14 @@ function installation(){
     echo -e "\n"
     
     dpkg -l ssh >paquets 2>erreurs.log
-    rm erreurs.log
-    rm paquets
     statut=$? #recuperation du statut d'execution de la commande precedente
     msg_installation="\tVous n'avez malheureusement pas les paquets necessaires\n
     \tvous aurez besoin de connection internet.\n
     \tpour continuer entrez 1 pour continuer";
     msg_confirmation="\tVous disposez deja de tous les paquets necessaires.\n
      \tvous pouvez continuer avec la configuration de votre serveur";
-
+    rm erreurs.log
+    rm paquets
     if [ $statut -eq 0 ]
      then 
         echo -e $msg_confirmation
